@@ -21,12 +21,17 @@ const cardColors = [
 export default function CardsPage() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+  const titleColor = isDark ? '#ffffff' : '#152238';
+  const subtitleColor = isDark ? '#8892b0' : '#5e6b84';
+  const cardBorder = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(21,34,56,0.18)';
+  const inputBorder = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(21,34,56,0.16)';
+  const inputBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(21,34,56,0.03)';
 
   return (
     <Box>
       {/* Metal Card Color Selector */}
       <Typography variant="h6"
-              sx={{ fontWeight: 600, mb: 3 }}>
+              sx={{ fontWeight: 600, mb: 3, color: titleColor }}>
         Choose your metal card design
       </Typography>
 
@@ -65,7 +70,7 @@ export default function CardsPage() {
 
       {/* Brand Identity */}
       <Typography variant="h6"
-              sx={{ fontWeight: 600, mb: 2.5 }}>
+              sx={{ fontWeight: 600, mb: 2.5, color: titleColor }}>
         Customize your brand identity
       </Typography>
 
@@ -73,7 +78,7 @@ export default function CardsPage() {
         <Grid size={{ xs: 12, md: 5 }}>
           <Box
             sx={{
-              border: `2px dashed ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(21,34,56,0.18)'}`,
+              border: `2px dashed ${cardBorder}`,
               borderRadius: 2,
               p: 4,
               display: 'flex',
@@ -87,14 +92,14 @@ export default function CardsPage() {
               background: isDark ? 'transparent' : 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(237,244,255,0.45) 100%)',
             }}
           >
-            <UploadIcon sx={{ fontSize: 36, color: '#8892b0', mb: 1 }} />
+            <UploadIcon sx={{ fontSize: 36, color: subtitleColor, mb: 1 }} />
             <Box
               component="img"
               src="/images/logo-stacked.png"
               alt="Bizing logo"
               sx={{ width: 96, height: 'auto', mb: 1.2 }}
             />
-            <Typography variant="body2" color="text.secondary">Upload your brand logo</Typography>
+            <Typography variant="body2" sx={{ color: subtitleColor }}>Upload your brand logo</Typography>
           </Box>
         </Grid>
         <Grid size={{ xs: 12, md: 7 }}>
@@ -127,19 +132,19 @@ export default function CardsPage() {
 
       {/* Card Information */}
       <Typography variant="h6"
-              sx={{ fontWeight: 600, mb: 2 }}>
+              sx={{ fontWeight: 600, mb: 2, color: titleColor }}>
         Customize card details
       </Typography>
 
       <TextField
         placeholder="Enter the name to print on the card"
         size="small"
-        sx={{ mb: 2, width: '100%', maxWidth: 480, display: 'block' }}
+        sx={{ mb: 2, width: '100%', maxWidth: 480, display: 'block', '& .MuiOutlinedInput-root': { backgroundColor: inputBg, '& fieldset': { borderColor: inputBorder } } }}
       />
 
       <FormControlLabel
         control={<Checkbox size="small" />}
-        label={<Typography variant="body2" color="text.secondary">I confirm that the card details are accurate</Typography>}
+        label={<Typography variant="body2" sx={{ color: subtitleColor }}>I confirm that the card details are accurate</Typography>}
         sx={{ mb: 3 }}
       />
 

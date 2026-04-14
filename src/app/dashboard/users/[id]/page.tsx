@@ -58,6 +58,11 @@ export default function UserProfilePage() {
   const [tab, setTab] = useState(0);
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+  const titleColor = isDark ? '#ffffff' : '#152238';
+  const subtitleColor = isDark ? '#8892b0' : '#5e6b84';
+  const cardBorder = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)';
+  const cardBg = isDark ? '#0d0e28' : '#ffffff';
+  const dividerBorder = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(21,34,56,0.08)';
 
   return (
     <Box>
@@ -79,10 +84,10 @@ export default function UserProfilePage() {
         sx={{
           px: 3,
           pb: 2,
-          bgcolor: isDark ? '#0d0e28' : '#ffffff',
+          bgcolor: cardBg,
           borderRadius: '0 0 12px 12px',
           mb: 2.5,
-          border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
+          border: `1px solid ${cardBorder}`,
           borderTop: 0,
         }}
       >
@@ -100,7 +105,7 @@ export default function UserProfilePage() {
             sx={{
               width: 80,
               height: 80,
-              border: `3px solid ${isDark ? '#0d0e28' : '#ffffff'}`,
+              border: `3px solid ${cardBg}`,
               background: 'linear-gradient(135deg, #1565FF 0%, #00cfff 100%)',
               fontSize: 28,
               fontWeight: 700,
@@ -109,16 +114,16 @@ export default function UserProfilePage() {
             JD
           </Avatar>
           <Box sx={{ flex: 1, pb: 0.5 }}>
-            <Typography variant="h6">John Doe</Typography>
+            <Typography variant="h6" sx={{ color: titleColor }}>John Doe</Typography>
             <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-              <Typography variant="caption" color="text.secondary">UX Designer</Typography>
+              <Typography variant="caption" sx={{ color: subtitleColor }}>UX Designer</Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <LocationIcon sx={{ fontSize: 12, color: '#8892b0' }} />
-                <Typography variant="caption" color="text.secondary">Vatican City</Typography>
+                <LocationIcon sx={{ fontSize: 12, color: subtitleColor }} />
+                <Typography variant="caption" sx={{ color: subtitleColor }}>Vatican City</Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <CalendarIcon sx={{ fontSize: 12, color: '#8892b0' }} />
-                <Typography variant="caption" color="text.secondary">Joined April 2021</Typography>
+                <CalendarIcon sx={{ fontSize: 12, color: subtitleColor }} />
+                <Typography variant="caption" sx={{ color: subtitleColor }}>Joined April 2021</Typography>
               </Box>
             </Box>
           </Box>
@@ -159,7 +164,7 @@ export default function UserProfilePage() {
           <Grid size={{ xs: 12, md: 4 }}>
             <Card sx={{ mb: 2 }}>
               <CardContent>
-                <Typography variant="overline" color="text.secondary" sx={{ fontSize: 10, letterSpacing: '0.1em' }}>ABOUT</Typography>
+                <Typography variant="overline" sx={{ fontSize: 10, letterSpacing: '0.1em', color: subtitleColor }}>ABOUT</Typography>
                 <Divider sx={{ my: 1 }} />
                 {[
                   { label: 'Full Name', value: 'John Doe' },
@@ -169,13 +174,13 @@ export default function UserProfilePage() {
                   { label: 'Language', value: 'English' },
                 ].map((row) => (
                   <Box key={row.label} sx={{ display: 'flex', py: 0.6 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ minWidth: 80 }}>
+                    <Typography variant="caption" sx={{ minWidth: 80, color: subtitleColor }}>
                       {row.label}
                     </Typography>
                     {row.chip ? (
                       <Chip label={row.value} size="small" sx={{ bgcolor: 'rgba(0,230,118,0.15)', color: '#00e676', height: 18, fontSize: 10 }} />
                     ) : (
-                      <Typography variant="caption">{row.value}</Typography>
+                      <Typography variant="caption" sx={{ color: titleColor }}>{row.value}</Typography>
                     )}
                   </Box>
                 ))}
@@ -184,7 +189,7 @@ export default function UserProfilePage() {
 
             <Card sx={{ mb: 2 }}>
               <CardContent>
-                <Typography variant="overline" color="text.secondary" sx={{ fontSize: 10 }}>CONTACTS</Typography>
+                <Typography variant="overline" sx={{ fontSize: 10, color: subtitleColor }}>CONTACTS</Typography>
                 <Divider sx={{ my: 1 }} />
                 {[
                   { label: 'Contact', value: '(123) 456-7890' },
@@ -192,8 +197,8 @@ export default function UserProfilePage() {
                   { label: 'Email', value: 'john.doe@example.com' },
                 ].map((row) => (
                   <Box key={row.label} sx={{ display: 'flex', py: 0.6 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ minWidth: 80 }}>{row.label}</Typography>
-                    <Typography variant="caption">{row.value}</Typography>
+                    <Typography variant="caption" sx={{ minWidth: 80, color: subtitleColor }}>{row.label}</Typography>
+                    <Typography variant="caption" sx={{ color: titleColor }}>{row.value}</Typography>
                   </Box>
                 ))}
               </CardContent>
@@ -201,12 +206,12 @@ export default function UserProfilePage() {
 
             <Card sx={{ mb: 2 }}>
               <CardContent>
-                <Typography variant="overline" color="text.secondary" sx={{ fontSize: 10 }}>TEAMS</Typography>
+                <Typography variant="overline" sx={{ fontSize: 10, color: subtitleColor }}>TEAMS</Typography>
                 <Divider sx={{ my: 1 }} />
                 {['Backend Developer (33 Members)', 'React Developer (118 Members)'].map((t) => (
                   <Box key={t} sx={{ display: 'flex', alignItems: 'center', gap: 1, py: 0.5 }}>
                     <Avatar sx={{ width: 22, height: 22, fontSize: 10, bgcolor: '#1565FF' }}>B</Avatar>
-                    <Typography variant="caption">{t}</Typography>
+                    <Typography variant="caption" sx={{ color: titleColor }}>{t}</Typography>
                   </Box>
                 ))}
               </CardContent>
@@ -214,7 +219,7 @@ export default function UserProfilePage() {
 
             <Card>
               <CardContent>
-                <Typography variant="overline" color="text.secondary" sx={{ fontSize: 10 }}>OVERVIEW</Typography>
+                <Typography variant="overline" sx={{ fontSize: 10, color: subtitleColor }}>OVERVIEW</Typography>
                 <Divider sx={{ my: 1 }} />
                 {[
                   { label: 'Task Completed', value: '13.5k' },
@@ -222,8 +227,8 @@ export default function UserProfilePage() {
                   { label: 'Projects Completed', value: '146' },
                 ].map((row) => (
                   <Box key={row.label} sx={{ display: 'flex', py: 0.6 }}>
-                    <Typography variant="caption" color="text.secondary" sx={{ flex: 1 }}>{row.label}</Typography>
-                    <Typography variant="caption">{row.value}</Typography>
+                    <Typography variant="caption" sx={{ flex: 1, color: subtitleColor }}>{row.label}</Typography>
+                    <Typography variant="caption" sx={{ color: titleColor }}>{row.value}</Typography>
                   </Box>
                 ))}
               </CardContent>
@@ -237,7 +242,7 @@ export default function UserProfilePage() {
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, mb: 1.5 }}>
                   <TrackChangesIcon sx={{ fontSize: 18, color: '#4d8aff' }} />
-                  <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 600, color: titleColor }}>
                     Activity Timeline
                   </Typography>
                 </Box>
@@ -255,10 +260,10 @@ export default function UserProfilePage() {
                     />
                     <Box sx={{ flex: 1 }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="body2" sx={{fontSize: 12, fontWeight: 600}}>{a.text}</Typography>
-                        <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10 }}>{a.time}</Typography>
+                        <Typography variant="body2" sx={{fontSize: 12, fontWeight: 600, color: titleColor}}>{a.text}</Typography>
+                        <Typography variant="caption" sx={{ fontSize: 10, color: subtitleColor }}>{a.time}</Typography>
                       </Box>
-                      {a.sub && <Typography variant="caption" color="text.secondary" sx={{ fontSize: 11 }}>{a.sub}</Typography>}
+                      {a.sub && <Typography variant="caption" sx={{ fontSize: 11, color: subtitleColor }}>{a.sub}</Typography>}
                     </Box>
                   </Box>
                 ))}
@@ -270,15 +275,15 @@ export default function UserProfilePage() {
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Card>
                   <CardContent>
-                    <Typography variant="subtitle2">Card</Typography>
+                    <Typography variant="subtitle2" sx={{ color: titleColor }}>Card</Typography>
                     {cards.map((c) => (
                       <Box key={c.name} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
                         <Avatar sx={{ width: 28, height: 28, fontSize: 12, bgcolor: '#1565FF' }}>
                           {c.name[0]}
                         </Avatar>
                         <Box sx={{ flex: 1 }}>
-                          <Typography variant="caption">{c.name}</Typography>
-                          <Typography variant="caption" color="text.secondary" sx={{fontSize: 10, display: 'block'}}>
+                          <Typography variant="caption" sx={{ color: titleColor }}>{c.name}</Typography>
+                          <Typography variant="caption" sx={{fontSize: 10, display: 'block', color: subtitleColor }}>
                             {c.members} Members
                           </Typography>
                         </Box>
@@ -294,19 +299,19 @@ export default function UserProfilePage() {
               <Grid size={{ xs: 12, sm: 6 }}>
                 <Card>
                   <CardContent>
-                    <Typography variant="subtitle2">Connection</Typography>
+                    <Typography variant="subtitle2" sx={{ color: titleColor }}>Connection</Typography>
                     {connections.map((c) => (
                       <Box key={c.name} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
                         <Avatar sx={{ width: 28, height: 28, fontSize: 12 }}>
                           {c.name.split(' ').map(n => n[0]).join('')}
                         </Avatar>
                         <Box sx={{ flex: 1 }}>
-                          <Typography variant="caption">{c.name}</Typography>
-                          <Typography variant="caption" color="text.secondary" sx={{fontSize: 10, display: 'block'}}>
+                          <Typography variant="caption" sx={{ color: titleColor }}>{c.name}</Typography>
+                          <Typography variant="caption" sx={{fontSize: 10, display: 'block', color: subtitleColor }}>
                             {c.role}
                           </Typography>
                         </Box>
-                        <Button size="small" variant="outlined" sx={{ fontSize: 9, py: 0.2, px: 1, minWidth: 0, borderColor: 'rgba(255,255,255,0.2)' }}>
+                        <Button size="small" variant="outlined" sx={{ fontSize: 9, py: 0.2, px: 1, minWidth: 0, borderColor: isDark ? 'rgba(255,255,255,0.2)' : 'rgba(21,34,56,0.16)', color: titleColor }}>
                           +
                         </Button>
                       </Box>
@@ -322,10 +327,10 @@ export default function UserProfilePage() {
             {/* eCard List */}
             <Card sx={{ mt: 2 }}>
               <CardContent>
-                <Typography variant="subtitle2">eCard list</Typography>
+                <Typography variant="subtitle2" sx={{ color: titleColor }}>eCard list</Typography>
                 <Box sx={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 0.5, mb: 1 }}>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10 }}>PROJECT</Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10 }}>LEADER</Typography>
+                  <Typography variant="caption" sx={{ fontSize: 10, color: subtitleColor }}>PROJECT</Typography>
+                  <Typography variant="caption" sx={{ fontSize: 10, color: subtitleColor }}>LEADER</Typography>
                 </Box>
                 {ecardList.map((item) => (
                   <Box
@@ -335,15 +340,15 @@ export default function UserProfilePage() {
                       gridTemplateColumns: '2fr 1fr',
                       gap: 0.5,
                       py: 0.8,
-                      borderBottom: '1px solid rgba(255,255,255,0.05)',
+                      borderBottom: `1px solid ${dividerBorder}`,
                       alignItems: 'center',
                     }}
                   >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: item.color, flexShrink: 0 }} />
-                      <Typography variant="caption">{item.name}</Typography>
+                      <Typography variant="caption" sx={{ color: titleColor }}>{item.name}</Typography>
                     </Box>
-                    <Typography variant="caption" color="text.secondary">{item.leader}</Typography>
+                    <Typography variant="caption" sx={{ color: subtitleColor }}>{item.leader}</Typography>
                   </Box>
                 ))}
               </CardContent>
@@ -359,29 +364,28 @@ export default function UserProfilePage() {
               <Card>
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                    <Typography variant="body2">{p.name}</Typography>
+                    <Typography variant="body2" sx={{ color: titleColor }}>{p.name}</Typography>
                     <IconButton size="small"><MoreIcon fontSize="small" /></IconButton>
                   </Box>
-                  <Typography variant="caption" color="text.secondary"
-              sx={{ display: 'block', mb: 1 }}>
+                  <Typography variant="caption" sx={{ display: 'block', mb: 1, color: subtitleColor }}>
                     {p.owner}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, mb: 1 }}>
                     <Box>
-                      <Typography variant="caption" color="text.secondary">Budget</Typography>
-                      <Typography variant="body2">{p.budget}</Typography>
-                      <Typography variant="caption" color="text.secondary">Total Budget: {p.totalBudget}</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>Budget</Typography>
+                      <Typography variant="body2" sx={{ color: titleColor }}>{p.budget}</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>Total Budget: {p.totalBudget}</Typography>
                     </Box>
                     <Box>
-                      <Typography variant="caption" color="text.secondary">Start Date: {p.start}</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>Start Date: {p.start}</Typography>
                       <Typography variant="body2"></Typography>
-                      <Typography variant="caption" color="text.secondary">Deadline: {p.deadline}</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>Deadline: {p.deadline}</Typography>
                     </Box>
                   </Box>
                   <Box sx={{ mt: 1.5 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                      <Typography variant="caption" color="text.secondary">All Hours</Typography>
-                      <Typography variant="caption">{p.progress}%</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>All Hours</Typography>
+                      <Typography variant="caption" sx={{ color: titleColor }}>{p.progress}%</Typography>
                     </Box>
                     <LinearProgress
                       variant="determinate"
@@ -389,7 +393,7 @@ export default function UserProfilePage() {
                       sx={{
                         height: 4,
                         borderRadius: 2,
-                        bgcolor: 'rgba(255,255,255,0.08)',
+                        bgcolor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(21,34,56,0.08)',
                         '& .MuiLinearProgress-bar': { bgcolor: '#1565FF', borderRadius: 2 },
                       }}
                     />

@@ -47,13 +47,13 @@ export default function TopBar() {
           zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
-        <Toolbar sx={{ minHeight: '52px !important', px: 2, justifyContent: 'flex-end', gap: 1 }}>
+        <Toolbar sx={{ minHeight: '52px !important', px: 2, justifyContent: 'flex-end', gap: 1.5 }}>
         {/* Dark/Light toggle */}
         <Tooltip title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
           <IconButton
             size="small"
             onClick={toggleMode}
-            sx={{ color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
+            sx={{ width: 36, height: 36, color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
           >
             {isDark ? <MoonIcon sx={{ fontSize: 16 }} /> : <SunIcon sx={{ fontSize: 16 }} />}
           </IconButton>
@@ -63,7 +63,7 @@ export default function TopBar() {
         <Tooltip title="Notifications">
           <IconButton
             size="small"
-            sx={{ color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
+            sx={{ width: 36, height: 36, color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
             onClick={(event) => setNotifAnchorEl(event.currentTarget)}
           >
             <Badge badgeContent={4} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: 9, minWidth: 16, height: 16 } }}>
@@ -77,7 +77,7 @@ export default function TopBar() {
           <IconButton
             size="small"
             onClick={(event) => setProfileAnchorEl(event.currentTarget)}
-            sx={{ p: 0 }}
+            sx={{ width: 36, height: 36, p: 0 }}
           >
             <Avatar
               src="/images/avatar.jpg"

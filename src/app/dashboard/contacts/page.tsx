@@ -10,14 +10,15 @@ import { useTheme } from '@mui/material/styles';
 export default function ContactsPage() {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-  const inputColor = isDark ? '#fff' : '#152238';
+  const titleColor = isDark ? '#ffffff' : '#152238';
+  const textColor = isDark ? '#8892b0' : '#5e6b84';
   const inputBorder = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(21,34,56,0.18)';
   const inputBg = isDark ? 'transparent' : 'rgba(21,34,56,0.02)';
 
   return (
     <Box>
       <Typography variant="h5"
-              sx={{ fontWeight: 600, mb: 3 }}>
+              sx={{ fontWeight: 600, mb: 3, color: titleColor }}>
         Contact us
       </Typography>
 
@@ -65,7 +66,7 @@ export default function ContactsPage() {
               placeholder="Enter your first name"
               size="small"
               variant="standard"
-              slotProps={{ input: { sx: { color: inputColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
+              slotProps={{ input: { sx: { color: titleColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }}>
@@ -74,7 +75,7 @@ export default function ContactsPage() {
               placeholder="Enter your last name"
               size="small"
               variant="standard"
-              slotProps={{ input: { sx: { color: inputColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
+              slotProps={{ input: { sx: { color: titleColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
             />
           </Grid>
           <Grid size={{ xs: 12 }}>
@@ -83,7 +84,7 @@ export default function ContactsPage() {
               placeholder="Enter your business email"
               size="small"
               variant="standard"
-              slotProps={{ input: { sx: { color: inputColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
+              slotProps={{ input: { sx: { color: titleColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
             />
           </Grid>
           <Grid size={{ xs: 12 }}>
@@ -93,7 +94,7 @@ export default function ContactsPage() {
               multiline
               rows={4}
               variant="standard"
-              slotProps={{ input: { sx: { color: inputColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
+              slotProps={{ input: { sx: { color: titleColor, backgroundColor: inputBg, '&:before': { borderColor: inputBorder } } } }}
             />
           </Grid>
         </Grid>
@@ -103,7 +104,7 @@ export default function ContactsPage() {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <FormControlLabel
             control={<Checkbox size="small" sx={{ color: isDark ? '#8892b0' : '#5e6b84' }} />}
-            label={<Typography variant="body2" color="text.secondary">I agree to be contacted regarding my request</Typography>}
+            label={<Typography variant="body2" sx={{ color: textColor }}>I agree to be contacted regarding my request</Typography>}
           />
           <Button variant="contained" color="primary" size="medium" sx={{ px: 4 }}>
             CONTACT US

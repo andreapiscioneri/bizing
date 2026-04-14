@@ -5,6 +5,7 @@ import {
   Box, Typography, Avatar, Button, Grid, Card, CardContent,
   Divider, Chip, Link as MuiLink,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
   Phone as PhoneIcon,
   Email as EmailIcon,
@@ -15,6 +16,14 @@ import {
 import Link from 'next/link';
 
 export default function UsersPage() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const titleColor = isDark ? '#ffffff' : '#152238';
+  const subtitleColor = isDark ? '#8892b0' : '#5e6b84';
+  const borderColor = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(21,34,56,0.16)';
+  const mutedBorder = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(21,34,56,0.08)';
+  const mapBg = isDark ? '#1a2a1a' : '#eef4ff';
+
   return (
     <Box>
       <Box sx={{ maxWidth: 800, mx: 'auto' }}>
@@ -34,18 +43,18 @@ export default function UsersPage() {
             NC
           </Avatar>
           <Typography variant="h5"
-              sx={{ fontWeight: 700, mb: 1.5 }}>
+              sx={{ fontWeight: 700, mb: 1.5, color: titleColor }}>
             Nome Cognome
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 1.5 }}>
-            <Button variant="outlined" size="small" startIcon={<PhoneIcon fontSize="small" />} sx={{ borderColor: 'rgba(255,255,255,0.2)' }}>
+          <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Button variant="outlined" size="small" startIcon={<PhoneIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor }}>
               CALL
             </Button>
-            <Button variant="outlined" size="small" startIcon={<EmailIcon fontSize="small" />} sx={{ borderColor: 'rgba(255,255,255,0.2)' }}>
+            <Button variant="outlined" size="small" startIcon={<EmailIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor }}>
               EMAIL
             </Button>
-            <Button variant="outlined" size="small" startIcon={<NavIcon fontSize="small" />} sx={{ borderColor: 'rgba(255,255,255,0.2)' }}>
+            <Button variant="outlined" size="small" startIcon={<NavIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor }}>
               NAVIGATE
             </Button>
           </Box>
@@ -64,11 +73,11 @@ export default function UsersPage() {
                   { label: 'Title', value: 'H' },
                   { label: 'URL', value: 'www.denani.it' },
                 ].map((row) => (
-                  <Box key={row.label} sx={{ display: 'flex', py: 0.8, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                    <Typography variant="body2" color="text.secondary" sx={{ minWidth: 110, fontSize: 12 }}>
+                  <Box key={row.label} sx={{ display: 'flex', py: 0.8, borderBottom: `1px solid ${mutedBorder}` }}>
+                    <Typography variant="body2" sx={{ minWidth: 110, fontSize: 12, color: subtitleColor }}>
                       {row.label}
                     </Typography>
-                    <Typography variant="body2" sx={{ fontSize: 12 }}>
+                    <Typography variant="body2" sx={{ fontSize: 12, color: titleColor }}>
                       {row.value}
                     </Typography>
                   </Box>
@@ -85,7 +94,7 @@ export default function UsersPage() {
                 sx={{
                   width: '100%',
                   height: 180,
-                  bgcolor: '#1a2a1a',
+                  bgcolor: mapBg,
                   position: 'relative',
                   overflow: 'hidden',
                 }}
@@ -95,10 +104,10 @@ export default function UsersPage() {
                     position: 'absolute',
                     inset: 0,
                     background: `
-                      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(0,100,0,0.15) 40px),
-                      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(0,100,0,0.15) 40px)
+                      repeating-linear-gradient(0deg, transparent, transparent 39px, ${isDark ? 'rgba(0,100,0,0.15)' : 'rgba(21,34,56,0.08)'} 40px),
+                      repeating-linear-gradient(90deg, transparent, transparent 39px, ${isDark ? 'rgba(0,100,0,0.15)' : 'rgba(21,34,56,0.08)'} 40px)
                     `,
-                    backgroundColor: '#1a2a1a',
+                    backgroundColor: mapBg,
                   }}
                 />
                 <Box
@@ -117,7 +126,7 @@ export default function UsersPage() {
                     position: 'absolute',
                     bottom: 8,
                     left: 8,
-                    color: 'rgba(255,255,255,0.7)',
+                    color: isDark ? 'rgba(255,255,255,0.7)' : '#5e6b84',
                     fontSize: 10,
                   }}
                 >
@@ -137,12 +146,12 @@ export default function UsersPage() {
                         width: 32,
                         height: 32,
                         borderRadius: '50%',
-                        border: '1px solid rgba(255,255,255,0.15)',
+                        border: `1px solid ${borderColor}`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        color: '#8892b0',
+                        color: subtitleColor,
                         fontSize: 12,
                         fontWeight: 700,
                         '&:hover': { borderColor: '#1565FF', color: '#1565FF' },

@@ -109,14 +109,23 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
           minHeight: 36,
           borderRadius: '6px',
           color: isActive ? theme.palette.text.primary : theme.palette.text.secondary,
+          '& .MuiListItemText-primary': { color: 'inherit' },
           '&.Mui-selected': {
             bgcolor: '#1565FF',
             color: '#fff',
             '& .MuiListItemIcon-root': { color: '#fff' },
+            '& .MuiListItemText-primary': { color: '#fff' },
+          },
+          '&.Mui-selected:hover': {
+            bgcolor: '#1565FF',
+            color: '#fff',
+            '& .MuiListItemIcon-root': { color: '#fff' },
+            '& .MuiListItemText-primary': { color: '#fff' },
           },
           '&:hover': {
             bgcolor: isActive && !hasChildren ? '#1565FF' : 'rgba(21,101,255,0.12)',
             color: isDark ? '#fff' : theme.palette.text.primary,
+            '& .MuiListItemText-primary': { color: 'inherit' },
           },
         }}
       >
@@ -148,7 +157,9 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
                   minHeight: 32,
                   borderRadius: '6px',
                   color: pathname === child.href ? '#1565FF' : theme.palette.text.secondary,
+                  '& .MuiListItemText-primary': { color: 'inherit' },
                   '&.Mui-selected': { bgcolor: 'transparent', color: '#1565FF' },
+                  '&.Mui-selected:hover': { bgcolor: 'transparent', color: '#1565FF' },
                   '&:hover': { bgcolor: 'rgba(21,101,255,0.08)', color: isDark ? '#fff' : theme.palette.text.primary },
                 }}
               >

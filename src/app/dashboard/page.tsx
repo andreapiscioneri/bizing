@@ -46,9 +46,9 @@ const pieData = [
 ];
 
 const personalAssets = [
-  { icon: <CardIcon sx={{ fontSize: 28, color: '#8892b0' }} />, label: 'Card', description: 'This article will show you how to expand the functionality of the App.' },
-  { icon: <ECardIcon sx={{ fontSize: 28, color: '#1565FF' }} />, label: 'eCards', description: 'This article will show you how to expand the functionality of the App.', active: true },
-  { icon: <PersonIcon sx={{ fontSize: 28, color: '#8892b0' }} />, label: 'Identity', description: 'This article will show you how to expand the functionality of the App.' },
+  { icon: <CardIcon sx={{ fontSize: 28 }} />, label: 'Card', description: 'This article will show you how to expand the functionality of the App.' },
+  { icon: <ECardIcon sx={{ fontSize: 28 }} />, label: 'eCards', description: 'This article will show you how to expand the functionality of the App.', active: true },
+  { icon: <PersonIcon sx={{ fontSize: 28 }} />, label: 'Identity', description: 'This article will show you how to expand the functionality of the App.' },
 ];
 
 export default function DashboardPage() {
@@ -100,7 +100,7 @@ export default function DashboardPage() {
           slotProps={{ input: {
             startAdornment: (
               <InputAdornment position="start">
-                <SearchIcon sx={{ color: '#8892b0', fontSize: 18 }} />
+                <SearchIcon sx={{ color: subtitleColor, fontSize: 18 }} />
               </InputAdornment>
             ),
           } }}
@@ -173,8 +173,8 @@ export default function DashboardPage() {
                       outerRadius={65}
                       dataKey="value"
                       paddingAngle={1}
-                      stroke="rgba(255, 255, 255, 0.56)"
-                      strokeWidth={1}
+                      stroke={isDark ? 'rgba(255, 255, 255, 0.35)' : 'rgba(21,34,56,0.06)'}
+                      strokeWidth={0.75}
                     >
                       {pieData.map((entry, index) => (
                         <Cell key={index} fill={entry.color} />
@@ -274,11 +274,11 @@ export default function DashboardPage() {
                 p: 2,
                 cursor: 'pointer',
                 transition: 'all 0.2s',
-                border: asset.active ? '1px solid #1565FF' : '1px solid rgba(255,255,255,0.06)',
+                border: asset.active ? '1px solid #1565FF' : `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.08)'}`,
                 '&:hover': { borderColor: '#1565FF', transform: 'translateY(-2px)' },
               }}
             >
-              <Box sx={{ mb: 1.5 }}>{asset.icon}</Box>
+              <Box sx={{ mb: 1.5, color: asset.active ? '#1565FF' : subtitleColor }}>{asset.icon}</Box>
               <Typography variant="body2" sx={{ color: titleColor }}>{asset.label}</Typography>
               <Typography variant="caption" sx={{ color: subtitleColor }}>{asset.description}</Typography>
             </Card>
@@ -298,7 +298,7 @@ export default function DashboardPage() {
         ].map((item, i) => (
           <Grid size={{ xs: 6, sm: 3 }} key={i}>
             <Card sx={{ textAlign: 'center', p: 2, cursor: 'pointer' }}>
-              <Box sx={{ color: '#8892b0', mb: 1 }}>{item.icon}</Box>
+              <Box sx={{ color: subtitleColor, mb: 1 }}>{item.icon}</Box>
               <Typography variant="body2" sx={{ color: titleColor }}>{item.label}</Typography>
               <Typography variant="caption" sx={{ color: subtitleColor }}>{item.sub}</Typography>
             </Card>

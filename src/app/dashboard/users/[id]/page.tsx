@@ -6,6 +6,7 @@ import {
   Tab, Tabs, Chip, List, ListItem, ListItemText, ListItemAvatar,
   IconButton, LinearProgress, Divider,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
   LocationOn as LocationIcon,
   CalendarToday as CalendarIcon,
@@ -55,13 +56,17 @@ const connections = [
 
 export default function UserProfilePage() {
   const [tab, setTab] = useState(0);
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
 
   return (
     <Box>
       {/* Header Banner */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #0a1050 0%, #0d0e28 100%)',
+          background: isDark
+            ? 'linear-gradient(135deg, #0a1050 0%, #0d0e28 100%)'
+            : 'linear-gradient(135deg, #edf4ff 0%, #dce8ff 100%)',
           borderRadius: 2,
           mb: 0,
           height: 120,
@@ -74,10 +79,10 @@ export default function UserProfilePage() {
         sx={{
           px: 3,
           pb: 2,
-          bgcolor: '#0d0e28',
+          bgcolor: isDark ? '#0d0e28' : '#ffffff',
           borderRadius: '0 0 12px 12px',
           mb: 2.5,
-          border: '1px solid rgba(255,255,255,0.06)',
+          border: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
           borderTop: 0,
         }}
       >
@@ -95,7 +100,7 @@ export default function UserProfilePage() {
             sx={{
               width: 80,
               height: 80,
-              border: '3px solid #0d0e28',
+              border: `3px solid ${isDark ? '#0d0e28' : '#ffffff'}`,
               background: 'linear-gradient(135deg, #1565FF 0%, #00cfff 100%)',
               fontSize: 28,
               fontWeight: 700,
@@ -135,7 +140,7 @@ export default function UserProfilePage() {
           variant="scrollable"
           scrollButtons="auto"
           sx={{
-            '& .MuiTab-root': { fontSize: 12, minWidth: 80, px: 1.5, color: '#8892b0' },
+            '& .MuiTab-root': { fontSize: 12, minWidth: 80, px: 1.5, color: isDark ? '#8892b0' : '#5e6b84' },
             '& .Mui-selected': { color: '#1565FF !important' },
             '& .MuiTabs-indicator': { bgcolor: '#1565FF' },
           }}

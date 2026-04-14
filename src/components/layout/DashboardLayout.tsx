@@ -13,7 +13,7 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: '#07081a' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'background.default' }}>
       <Sidebar />
       <TopBar />
       <Box
@@ -33,7 +33,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Footer */}
         <Box
           sx={{
-            borderTop: '1px solid rgba(255,255,255,0.06)',
+            borderTop: '1px solid',
+            borderColor: 'divider',
             px: 3,
             py: 1.5,
             display: 'flex',
@@ -46,7 +47,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               key={item}
               component="a"
               href="#"
-              sx={{ fontSize: 11, color: '#8892b0', '&:hover': { color: '#fff' } }}
+              sx={{ fontSize: 11, color: 'text.secondary', '&:hover': { color: 'text.primary' } }}
             >
               {item}
             </Box>

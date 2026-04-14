@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import {
   NotificationsOutlined as NotifIcon,
+  WbSunny as SunIcon,
   NightlightRound as MoonIcon,
   Person as PersonIcon,
   Settings as SettingsIcon,
@@ -15,6 +16,7 @@ import {
   GroupOutlined as GroupIcon,
 } from '@mui/icons-material';
 import Link from 'next/link';
+import { useThemeMode } from '@/components/ThemeRegistry';
 
 const notifications = [
   { title: 'New payment received', subtitle: 'Order #38421 has been confirmed', icon: PaymentIcon },
@@ -25,9 +27,11 @@ const notifications = [
 export default function TopBar() {
   const [notifAnchorEl, setNotifAnchorEl] = useState<null | HTMLElement>(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState<null | HTMLElement>(null);
+  const { mode, toggleMode } = useThemeMode();
 
   const isNotifOpen = Boolean(notifAnchorEl);
   const isProfileOpen = Boolean(profileAnchorEl);
+  const isDark = mode === 'dark';
 
   return (
     <>
@@ -38,22 +42,28 @@ export default function TopBar() {
           width: `calc(100% - 220px)`,
           ml: `220px`,
           backgroundColor: 'transparent',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
           backdropFilter: 'blur(10px)',
           zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
         <Toolbar sx={{ minHeight: '52px !important', px: 2, justifyContent: 'flex-end', gap: 1 }}>
-        {/* Dark/Light toggle (cosmetic) */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <MoonIcon sx={{ fontSize: 16, color: '#8892b0' }} />
-        </Box>
+        {/* Dark/Light toggle */}
+        <Tooltip title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <IconButton
+            size="small"
+            onClick={toggleMode}
+            sx={{ color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
+          >
+            {isDark ? <MoonIcon sx={{ fontSize: 16 }} /> : <SunIcon sx={{ fontSize: 16 }} />}
+          </IconButton>
+        </Tooltip>
 
         {/* Notifications */}
         <Tooltip title="Notifications">
           <IconButton
             size="small"
-            sx={{ color: '#8892b0', '&:hover': { color: '#fff' } }}
+            sx={{ color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
             onClick={(event) => setNotifAnchorEl(event.currentTarget)}
           >
             <Badge badgeContent={4} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: 9, minWidth: 16, height: 16 } }}>
@@ -85,8 +95,8 @@ export default function TopBar() {
                 sx: {
                   mt: 1,
                   minWidth: 320,
-                  backgroundColor: '#0d0e28',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  backgroundColor: isDark ? '#0d0e28' : '#ffffff',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(21,34,56,0.12)'}`,
                 },
               },
             }}
@@ -113,8 +123,8 @@ export default function TopBar() {
                 sx: {
                   mt: 1,
                   minWidth: 200,
-                  backgroundColor: '#0d0e28',
-                  border: '1px solid rgba(255,255,255,0.12)',
+                  backgroundColor: isDark ? '#0d0e28' : '#ffffff',
+                  border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(21,34,56,0.12)'}`,
                 },
               },
             }}

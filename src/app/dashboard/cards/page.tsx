@@ -5,6 +5,7 @@ import {
   Box, Typography, Grid, Card, CardContent, Button, Chip,
   TextField, Checkbox, FormControlLabel, Divider,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
   FileUploadOutlined as UploadIcon,
 } from '@mui/icons-material';
@@ -18,6 +19,9 @@ const cardColors = [
 ];
 
 export default function CardsPage() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box>
       {/* Metal Card Color Selector */}
@@ -69,7 +73,7 @@ export default function CardsPage() {
         <Grid size={{ xs: 12, md: 5 }}>
           <Box
             sx={{
-              border: '2px dashed rgba(255,255,255,0.15)',
+              border: `2px dashed ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(21,34,56,0.18)'}`,
               borderRadius: 2,
               p: 4,
               display: 'flex',
@@ -80,6 +84,7 @@ export default function CardsPage() {
               minHeight: 160,
               transition: 'border-color 0.2s',
               '&:hover': { borderColor: '#1565FF' },
+              background: isDark ? 'transparent' : 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(237,244,255,0.45) 100%)',
             }}
           >
             <UploadIcon sx={{ fontSize: 36, color: '#8892b0', mb: 1 }} />
@@ -96,21 +101,23 @@ export default function CardsPage() {
           {/* Preview Card */}
           <Box
             sx={{
-              background: 'linear-gradient(135deg, #111827 0%, #2a3344 100%)',
+              background: isDark
+                ? 'linear-gradient(135deg, #111827 0%, #2a3344 100%)'
+                : 'linear-gradient(135deg, #f8fbff 0%, #e5eeff 100%)',
               borderRadius: 3,
               p: 3,
               minHeight: 220,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+              boxShadow: isDark ? '0 8px 24px rgba(0,0,0,0.4)' : '0 10px 26px rgba(21,34,56,0.12)',
             }}
           >
             <Box
               component="img"
               src="/images/card-main.png"
               alt="Bizing business card"
-              sx={{ width: '100%', maxWidth: 560, height: 'auto', objectFit: 'contain' }}
+              sx={{ width: '100%', maxWidth: 560, height: 'auto', objectFit: 'contain', opacity: isDark ? 1 : 0.98 }}
             />
           </Box>
         </Grid>

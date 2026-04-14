@@ -4,6 +4,7 @@ import React from 'react';
 import {
   Box, Typography, TextField, Button, Link as MuiLink,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
   LockOutlined as LockIcon,
   ArrowBack as ArrowBackIcon,
@@ -12,9 +13,18 @@ import Link from 'next/link';
 import BizingLogo from '@/components/BizingLogo';
 
 export default function ForgotPasswordPage() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
+  const pageBackground = isDark ? '#07081a' : '#f4f7fc';
+  const panelBackground = isDark ? 'rgba(7,8,26,0.95)' : '#ffffff';
+  const titleColor = isDark ? '#ffffff' : '#152238';
+  const textSecondary = isDark ? '#8892b0' : '#5e6b84';
+  const inputBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(21,34,56,0.03)';
+  const inputBorder = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(21,34,56,0.16)';
+
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: '#07081a' }}>
-      {/* Left side */}
+    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: pageBackground }}>
       <Box
         sx={{
           flex: 1,
@@ -24,16 +34,17 @@ export default function ForgotPasswordPage() {
           justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
-          background: `url('/images/background-city.png') center/cover no-repeat`,
+          background: isDark
+            ? `url('/images/background-city.png') center/cover no-repeat`
+            : `linear-gradient(135deg, rgba(244,247,252,0.9) 0%, rgba(244,247,252,0.65) 100%), url('/images/background-city.png') center/cover no-repeat`,
         }}
       >
-        <Box sx={{ position: 'absolute', inset: 0, background: 'rgba(7,8,26,0.75)' }} />
+        <Box sx={{ position: 'absolute', inset: 0, background: isDark ? 'rgba(7,8,26,0.75)' : 'rgba(244,247,252,0.82)' }} />
         <Box sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <BizingLogo size="large" showText showSubtitle />
         </Box>
       </Box>
 
-      {/* Right side */}
       <Box
         sx={{
           width: { xs: '100%', md: 420 },
@@ -42,7 +53,7 @@ export default function ForgotPasswordPage() {
           justifyContent: 'center',
           px: { xs: 3, md: 5 },
           py: 4,
-          backgroundColor: 'rgba(7,8,26,0.95)',
+          backgroundColor: panelBackground,
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
@@ -61,10 +72,10 @@ export default function ForgotPasswordPage() {
           </Box>
         </Box>
 
-        <Typography variant="h5" sx={{ fontWeight: 700, mb: 0.5, textAlign: 'center' }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, mb: 0.5, textAlign: 'center', color: titleColor }}>
           Forgot Password?
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
+        <Typography variant="body2" sx={{ mb: 3, textAlign: 'center', color: textSecondary }}>
           Enter your email and we&apos;ll send you instructions to reset your password
         </Typography>
 
@@ -73,7 +84,13 @@ export default function ForgotPasswordPage() {
           placeholder="Email"
           type="email"
           size="small"
-          sx={{ mb: 2.5 }}
+          sx={{
+            mb: 2.5,
+            '& .MuiOutlinedInput-root': {
+              backgroundColor: inputBg,
+              '& fieldset': { borderColor: inputBorder },
+            },
+          }}
         />
 
         <Button
@@ -88,7 +105,7 @@ export default function ForgotPasswordPage() {
           SEND RESET LINK
         </Button>
 
-        <Typography variant="body2" sx={{ textAlign: 'center' }} color="text.secondary">
+        <Typography variant="body2" sx={{ textAlign: 'center', color: textSecondary }}>
           <MuiLink
             component={Link}
             href="/login"

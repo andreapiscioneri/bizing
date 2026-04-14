@@ -5,6 +5,7 @@ import {
   Box, Typography, TextField, InputAdornment, Grid, Card, CardContent,
   CardHeader, IconButton, Avatar, Chip, Divider,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import {
   Search as SearchIcon,
   MoreVert as MoreIcon,
@@ -51,24 +52,38 @@ const personalAssets = [
 ];
 
 export default function DashboardPage() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const titleColor = isDark ? '#ffffff' : '#152238';
+  const subtitleColor = isDark ? '#8892b0' : '#5e6b84';
+  const axisColor = isDark ? '#8892b0' : '#6b7a93';
+  const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(21,34,56,0.08)';
+  const chartTooltipStyle = {
+    backgroundColor: isDark ? '#0d0e28' : '#ffffff',
+    border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(21,34,56,0.12)'}`,
+    borderRadius: 8,
+    color: isDark ? '#fff' : '#152238',
+  };
+
   return (
     <Box>
       {/* Search Hero */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, #0d1440 0%, #0a0b22 100%)',
+          background: isDark
+            ? 'linear-gradient(135deg, #0d1440 0%, #0a0b22 100%)'
+            : 'linear-gradient(135deg, #edf4ff 0%, #dfeaff 100%)',
           borderRadius: 2,
           p: 4,
           textAlign: 'center',
           mb: 3,
-          border: '1px solid rgba(21,101,255,0.15)',
+          border: `1px solid ${isDark ? 'rgba(21,101,255,0.15)' : 'rgba(21,101,255,0.16)'}`,
         }}
       >
-        <Typography variant="h5" sx={{color: '#4d8aff', fontWeight: 700, mb: 0.5}}>
+        <Typography variant="h5" sx={{color: isDark ? '#4d8aff' : '#1565FF', fontWeight: 700, mb: 0.5}}>
           Hello, how can we help?
         </Typography>
-        <Typography variant="body2" color="text.secondary"
-              sx={{ mb: 2 }}>
+        <Typography variant="body2" sx={{ mb: 2, color: subtitleColor }}>
           or choose a category to quickly find the help you need
         </Typography>
         <TextField
@@ -77,7 +92,10 @@ export default function DashboardPage() {
           sx={{
             width: '100%',
             maxWidth: 480,
-            '& .MuiOutlinedInput-root': { borderRadius: 3, bgcolor: 'rgba(255,255,255,0.04)' },
+            '& .MuiOutlinedInput-root': {
+              borderRadius: 3,
+              bgcolor: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.8)',
+            },
           }}
           slotProps={{ input: {
             startAdornment: (
@@ -90,8 +108,8 @@ export default function DashboardPage() {
       </Box>
 
       {/* Analytics Title */}
-      <Typography variant="h6"
-              sx={{ fontWeight: 600, mb: 2 }}>
+            <Typography variant="h6"
+              sx={{ fontWeight: 600, mb: 2, color: titleColor }}>
         Analytics
       </Typography>
 
@@ -100,18 +118,18 @@ export default function DashboardPage() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="body1">Monthly user growth</Typography>}
+              title={<Typography variant="body1" sx={{ color: titleColor }}>Monthly user growth</Typography>}
               action={<IconButton size="small"><MoreIcon fontSize="small" /></IconButton>}
               sx={{ pb: 0 }}
               subheader={
                 <Box sx={{ display: 'flex', gap: 2, mt: 0.5 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#1565FF' }} />
-                    <Typography variant="caption" color="text.secondary">New users</Typography>
+                    <Typography variant="caption" sx={{ color: subtitleColor }}>New users</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#00cfff' }} />
-                    <Typography variant="caption" color="text.secondary">Active users</Typography>
+                    <Typography variant="caption" sx={{ color: subtitleColor }}>Active users</Typography>
                   </Box>
                 </Box>
               }
@@ -119,12 +137,12 @@ export default function DashboardPage() {
             <CardContent sx={{ pt: 1 }}>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={barData} barSize={8} barGap={4}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#8892b0' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 10, fill: '#8892b0' }} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: axisColor }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: axisColor }} axisLine={false} tickLine={false} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#0d0e28', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}
-                    labelStyle={{ color: '#fff' }}
+                    contentStyle={chartTooltipStyle}
+                    labelStyle={{ color: isDark ? '#fff' : '#152238' }}
                   />
                   <Bar dataKey="dataOne" fill="#1565FF" radius={[2, 2, 0, 0]} />
                   <Bar dataKey="dataTwo" fill="#00cfff" radius={[2, 2, 0, 0]} />
@@ -138,10 +156,10 @@ export default function DashboardPage() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="body1">Account status distribution</Typography>}
+              title={<Typography variant="body1" sx={{ color: titleColor }}>Account status distribution</Typography>}
               action={<IconButton size="small"><MoreIcon fontSize="small" /></IconButton>}
               sx={{ pb: 0 }}
-              subheader={<Typography variant="caption" color="text.secondary">Percentage breakdown by account status</Typography>}
+              subheader={<Typography variant="caption" sx={{ color: subtitleColor }}>Percentage breakdown by account status</Typography>}
             />
             <CardContent sx={{ pt: 1 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -163,7 +181,7 @@ export default function DashboardPage() {
                       ))}
                     </Pie>
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#0d0e28', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}
+                        contentStyle={chartTooltipStyle}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -171,7 +189,7 @@ export default function DashboardPage() {
                   {pieData.map((item, i) => (
                     <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                       <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: item.color, flexShrink: 0 }} />
-                      <Typography variant="body2">{item.name}</Typography>
+                      <Typography variant="body2" sx={{ color: titleColor }}>{item.name}</Typography>
                     </Box>
                   ))}
                 </Box>
@@ -184,21 +202,21 @@ export default function DashboardPage() {
         <Grid size={{ xs: 12 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="body1">Operational performance</Typography>}
+              title={<Typography variant="body1" sx={{ color: titleColor }}>Operational performance</Typography>}
               sx={{ pb: 0 }}
               subheader={
                 <Box>
-                  <Typography variant="caption" color="text.secondary">
+                  <Typography variant="caption" sx={{ color: subtitleColor }}>
                     Real-time tracking of handled requests and average response time
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, mt: 0.5 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                       <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#1565FF' }} />
-                      <Typography variant="caption" color="text.secondary">Zone one</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>Zone one</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                       <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#00cfff' }} />
-                      <Typography variant="caption" color="text.secondary">Zone two</Typography>
+                      <Typography variant="caption" sx={{ color: subtitleColor }}>Zone two</Typography>
                     </Box>
                   </Box>
                 </Box>
@@ -207,7 +225,7 @@ export default function DashboardPage() {
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
                 <Avatar src="/images/avatar.jpg" sx={{ width: 28, height: 28 }} />
-                <Typography variant="caption" color="text.secondary">Last 24-hour update</Typography>
+                <Typography variant="caption" sx={{ color: subtitleColor }}>Last 24-hour update</Typography>
                 <Box sx={{ flex: 1 }} />
                 <Typography variant="caption" color="primary.main"
               sx={{ fontWeight: 700 }}>
@@ -226,12 +244,12 @@ export default function DashboardPage() {
                       <stop offset="95%" stopColor="#00cfff" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
-                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#8892b0' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 10, fill: '#8892b0' }} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: axisColor }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: axisColor }} axisLine={false} tickLine={false} />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#0d0e28', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8 }}
-                    labelStyle={{ color: '#fff' }}
+                    contentStyle={chartTooltipStyle}
+                    labelStyle={{ color: isDark ? '#fff' : '#152238' }}
                   />
                   <Area type="monotone" dataKey="zoneOne" stroke="#1565FF" fill="url(#colorZone1)" strokeWidth={2} dot={false} />
                   <Area type="monotone" dataKey="zoneTwo" stroke="#00cfff" fill="url(#colorZone2)" strokeWidth={2} dot={false} />
@@ -244,7 +262,7 @@ export default function DashboardPage() {
 
       {/* Personal Assets */}
       <Typography variant="h6"
-              sx={{ fontWeight: 600, mb: 2 }}>
+              sx={{ fontWeight: 600, mb: 2, color: titleColor }}>
         Personal assets
       </Typography>
       <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -261,8 +279,8 @@ export default function DashboardPage() {
               }}
             >
               <Box sx={{ mb: 1.5 }}>{asset.icon}</Box>
-              <Typography variant="body2">{asset.label}</Typography>
-              <Typography variant="caption" color="text.secondary">{asset.description}</Typography>
+              <Typography variant="body2" sx={{ color: titleColor }}>{asset.label}</Typography>
+              <Typography variant="caption" sx={{ color: subtitleColor }}>{asset.description}</Typography>
             </Card>
           </Grid>
         ))}
@@ -270,7 +288,7 @@ export default function DashboardPage() {
 
       {/* Settings */}
       <Typography variant="h6"
-              sx={{ fontWeight: 600, mb: 2 }}>
+              sx={{ fontWeight: 600, mb: 2, color: titleColor }}>
         Settings
       </Typography>
       <Grid container spacing={2}>
@@ -281,8 +299,8 @@ export default function DashboardPage() {
           <Grid size={{ xs: 6, sm: 3 }} key={i}>
             <Card sx={{ textAlign: 'center', p: 2, cursor: 'pointer' }}>
               <Box sx={{ color: '#8892b0', mb: 1 }}>{item.icon}</Box>
-              <Typography variant="body2">{item.label}</Typography>
-              <Typography variant="caption" color="text.secondary">{item.sub}</Typography>
+              <Typography variant="body2" sx={{ color: titleColor }}>{item.label}</Typography>
+              <Typography variant="caption" sx={{ color: subtitleColor }}>{item.sub}</Typography>
             </Card>
           </Grid>
         ))}

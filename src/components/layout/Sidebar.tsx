@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import {
   Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText,
-  Typography, Divider, Collapse, IconButton, Tooltip,
+  Typography, Divider, Collapse, IconButton, Tooltip, useTheme,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -84,6 +84,8 @@ interface SidebarItemProps {
 }
 
 function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const pathname = usePathname();
   const [open, setOpen] = useState(pathname.startsWith(item.href));
   const hasChildren = item.children && item.children.length > 0;
@@ -106,7 +108,7 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
           mb: 0.2,
           minHeight: 36,
           borderRadius: '6px',
-          color: isActive ? '#fff' : '#8892b0',
+          color: isActive ? theme.palette.text.primary : theme.palette.text.secondary,
           '&.Mui-selected': {
             bgcolor: '#1565FF',
             color: '#fff',
@@ -114,7 +116,7 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
           },
           '&:hover': {
             bgcolor: isActive && !hasChildren ? '#1565FF' : 'rgba(21,101,255,0.12)',
-            color: '#fff',
+            color: isDark ? '#fff' : theme.palette.text.primary,
           },
         }}
       >
@@ -145,9 +147,9 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
                   mb: 0.2,
                   minHeight: 32,
                   borderRadius: '6px',
-                  color: pathname === child.href ? '#1565FF' : '#8892b0',
+                  color: pathname === child.href ? '#1565FF' : theme.palette.text.secondary,
                   '&.Mui-selected': { bgcolor: 'transparent', color: '#1565FF' },
-                  '&:hover': { bgcolor: 'rgba(21,101,255,0.08)', color: '#fff' },
+                  '&:hover': { bgcolor: 'rgba(21,101,255,0.08)', color: isDark ? '#fff' : theme.palette.text.primary },
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 24, color: 'inherit' }}>{child.icon}</ListItemIcon>
@@ -165,6 +167,9 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
 }
 
 export default function Sidebar() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Drawer
       variant="permanent"
@@ -174,8 +179,8 @@ export default function Sidebar() {
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
-          backgroundColor: '#0a0b22',
-          borderRight: '1px solid rgba(255,255,255,0.06)',
+          backgroundColor: isDark ? '#0a0b22' : '#ffffff',
+          borderRight: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
           overflowX: 'hidden',
         },
       }}
@@ -185,7 +190,7 @@ export default function Sidebar() {
         <BizingLogo size="small" />
       </Box>
 
-      <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+      <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)' }} />
 
       {/* Navigation */}
       <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', px: 1, py: 1 }}>
@@ -196,7 +201,7 @@ export default function Sidebar() {
                 sx={{
                   fontSize: 9,
                   fontWeight: 700,
-                  color: '#4a5568',
+                  color: isDark ? '#4a5568' : '#8a94a8',
                   letterSpacing: '0.12em',
                   px: 1.5,
                   py: 0.5,
@@ -208,7 +213,7 @@ export default function Sidebar() {
             )}
             {/* Divider line after label */}
             {section.label && (
-              <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)', mb: 0.5, mx: 1 }} />
+              <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)', mb: 0.5, mx: 1 }} />
             )}
             <List disablePadding>
               {section.items.map((item) => (
@@ -220,13 +225,13 @@ export default function Sidebar() {
       </Box>
 
       {/* Settings icon at bottom */}
-      <Box sx={{ p: 1.5, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <Box sx={{ p: 1.5, borderTop: '1px solid', borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)' }}>
         <Tooltip title="Settings" placement="right">
           <IconButton
             component={Link}
             href="/dashboard/settings"
             size="small"
-            sx={{ color: '#8892b0', '&:hover': { color: '#fff' } }}
+            sx={{ color: 'text.secondary', '&:hover': { color: isDark ? '#fff' : 'text.primary' } }}
           >
             <SettingsIcon fontSize="small" />
           </IconButton>

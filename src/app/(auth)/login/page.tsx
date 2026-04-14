@@ -5,15 +5,29 @@ import {
   Box, Typography, TextField, Button, Checkbox, FormControlLabel,
   Link as MuiLink, IconButton, InputAdornment, Divider,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Visibility,
+  VisibilityOff,
+  Facebook as FacebookIcon,
+  X as XIcon,
+  Instagram as InstagramIcon,
+  LinkedIn as LinkedInIcon,
+} from '@mui/icons-material';
 import Link from 'next/link';
 import BizingLogo from '@/components/BizingLogo';
+
+const socialIcons = [
+  { label: 'facebook', Icon: FacebookIcon },
+  { label: 'x', Icon: XIcon },
+  { label: 'instagram', Icon: InstagramIcon },
+  { label: 'linkedin', Icon: LinkedInIcon },
+];
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: '#07081a' }}>
-      <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(7,8,26,0.75) 0%, rgba(21,101,255,0.08) 100%), url("/images/city-bg.jpg") center/cover no-repeat' }}>
+      <Box sx={{ flex: 1, display: { xs: 'none', md: 'flex' }, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, rgba(7,8,26,0.75) 0%, rgba(21,101,255,0.08) 100%), url("/images/background-city.png") center/cover no-repeat' }}>
         <Box sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
           <BizingLogo size="large" showText showSubtitle />
         </Box>
@@ -37,8 +51,21 @@ export default function LoginPage() {
         </Typography>
         <Divider sx={{ my: 2 }}><Typography variant="caption" color="text.secondary">or</Typography></Divider>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-          {['f', 'T', '📷', 'in'].map((icon, i) => (
-            <IconButton key={i} size="small" sx={{ color: '#8892b0', border: '1px solid rgba(255,255,255,0.1)', width: 36, height: 36, fontSize: 13, '&:hover': { color: '#1565FF', borderColor: '#1565FF' } }}>{icon}</IconButton>
+          {socialIcons.map(({ label, Icon }) => (
+            <IconButton
+              key={label}
+              size="small"
+              aria-label={label}
+              sx={{
+                color: '#8892b0',
+                border: '1px solid rgba(255,255,255,0.1)',
+                width: 36,
+                height: 36,
+                '&:hover': { color: '#1565FF', borderColor: '#1565FF' },
+              }}
+            >
+              <Icon sx={{ fontSize: 18 }} />
+            </IconButton>
           ))}
         </Box>
       </Box>

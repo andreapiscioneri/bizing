@@ -4,7 +4,10 @@ import React from 'react';
 import {
   Box, Typography, TextField, Button, Link as MuiLink,
 } from '@mui/material';
-import { LockOutlined as LockIcon } from '@mui/icons-material';
+import {
+  LockOutlined as LockIcon,
+  ArrowBack as ArrowBackIcon,
+} from '@mui/icons-material';
 import Link from 'next/link';
 import BizingLogo from '@/components/BizingLogo';
 
@@ -21,7 +24,7 @@ export default function ForgotPasswordPage() {
           justifyContent: 'center',
           position: 'relative',
           overflow: 'hidden',
-          background: `url('/images/city-bg.jpg') center/cover no-repeat`,
+          background: `url('/images/background-city.png') center/cover no-repeat`,
         }}
       >
         <Box sx={{ position: 'absolute', inset: 0, background: 'rgba(7,8,26,0.75)' }} />
@@ -86,8 +89,14 @@ export default function ForgotPasswordPage() {
         </Button>
 
         <Typography variant="body2" sx={{ textAlign: 'center' }} color="text.secondary">
-          <MuiLink component={Link} href="/login" color="primary">
-            ← Back to login
+          <MuiLink
+            component={Link}
+            href="/login"
+            color="primary"
+            sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}
+          >
+            <ArrowBackIcon sx={{ fontSize: 16 }} />
+            Back to login
           </MuiLink>
         </Typography>
       </Box>

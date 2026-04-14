@@ -18,7 +18,7 @@ export default function VerifyEmailPage() {
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          background: `url('/images/city-bg.jpg') center/cover no-repeat`,
+          background: `url('/images/background-city.png') center/cover no-repeat`,
         }}
       >
         <Box sx={{ position: 'absolute', inset: 0, background: 'rgba(7,8,26,0.75)' }} />
@@ -57,7 +57,7 @@ export default function VerifyEmailPage() {
 
         <Typography variant="h5"
               sx={{ fontWeight: 700, mb: 1 }}>
-          Verify your email ✉️
+          Verify your email
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 320, mb: 3 }}>
           Account activation link sent to your email address:{' '}

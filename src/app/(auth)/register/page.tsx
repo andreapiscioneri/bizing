@@ -23,7 +23,7 @@ export default function RegisterPage() {
           overflow: 'hidden',
           background: `
             linear-gradient(135deg, rgba(7,8,26,0.6) 0%, rgba(7,8,26,0.4) 100%),
-            url('/images/city-bg.jpg') center/cover no-repeat
+            url('/images/background-city.png') center/cover no-repeat
           `,
         }}
       >
@@ -88,7 +88,7 @@ export default function RegisterPage() {
         <FormControlLabel
           sx={{ mt: 2 }}
           control={<Checkbox size="small" sx={{ color: '#8892b0' }} />}
-          label={<Typography variant="body2" color="text.secondary">Accept Lorem ipsum</Typography>}
+          label={<Typography variant="body2" color="text.secondary">Accetto termini di servizio e informativa privacy</Typography>}
         />
 
         <Button

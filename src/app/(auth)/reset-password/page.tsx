@@ -21,7 +21,8 @@ export default function ResetPasswordPage() {
           alignItems: 'center',
           justifyContent: 'center',
           position: 'relative',
-          background: `url('/images/city-bg.jpg') center/cover no-repeat`,
+          background: `url('/images/background-city.png') center/cover no-repeat`,
+          overflow: 'hidden',
         }}
       >
         <Box sx={{ position: 'absolute', inset: 0, background: 'rgba(7,8,26,0.75)' }} />

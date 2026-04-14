@@ -12,6 +12,7 @@ import {
   PersonAdd as ConnectIcon,
   MoreVert as MoreIcon,
   Star as StarIcon,
+  TrackChanges as TrackChangesIcon,
 } from '@mui/icons-material';
 
 const projects = [
@@ -31,7 +32,7 @@ const ecardList = [
 
 const activities = [
   { text: '8 Invoices have been paid', sub: 'Invoices have been sent to the company', time: 'Yesterday', type: 'invoice' },
-  { text: 'Create a new project for User 😎', sub: 'Invoices have been sent to the company', time: 'Apr 20', type: 'project' },
+  { text: 'Create a new project for User', sub: 'Invoices have been sent to the company', time: 'Apr 20', type: 'project' },
   { text: "Order #37745 from September", sub: 'Invoices have been sent to the company', time: 'Oct 19', type: 'order' },
   { text: 'Public Meeting', sub: '', time: 'September 15', type: 'meeting' },
 ];
@@ -80,7 +81,16 @@ export default function UserProfilePage() {
           borderTop: 0,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2, mt: -4, mb: 1.5 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: { xs: 'flex-start', sm: 'flex-end' },
+            gap: 2,
+            mt: -4,
+            mb: 1.5,
+            flexWrap: { xs: 'wrap', sm: 'nowrap' },
+          }}
+        >
           <Avatar
             sx={{
               width: 80,
@@ -112,7 +122,7 @@ export default function UserProfilePage() {
             color="primary"
             size="small"
             startIcon={<ConnectIcon fontSize="small" />}
-            sx={{ px: 2 }}
+            sx={{ px: 2, width: { xs: '100%', sm: 'auto' } }}
           >
             Connect
           </Button>
@@ -122,6 +132,8 @@ export default function UserProfilePage() {
         <Tabs
           value={tab}
           onChange={(_, v) => setTab(v)}
+          variant="scrollable"
+          scrollButtons="auto"
           sx={{
             '& .MuiTab-root': { fontSize: 12, minWidth: 80, px: 1.5, color: '#8892b0' },
             '& .Mui-selected': { color: '#1565FF !important' },
@@ -218,10 +230,12 @@ export default function UserProfilePage() {
             {/* Activity Timeline */}
             <Card sx={{ mb: 2 }}>
               <CardContent>
-                <Typography variant="subtitle2"
-              sx={{ fontWeight: 600, mb: 1.5 }}>
-                  🎯 Activity Timeline
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, mb: 1.5 }}>
+                  <TrackChangesIcon sx={{ fontSize: 18, color: '#4d8aff' }} />
+                  <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                    Activity Timeline
+                  </Typography>
+                </Box>
                 {activities.map((a, i) => (
                   <Box key={i} sx={{ display: 'flex', gap: 1.5, mb: 2, alignItems: 'flex-start' }}>
                     <Box

@@ -39,9 +39,9 @@ const areaData = [
 ];
 
 const pieData = [
-  { name: 'Lorem', value: 35, color: '#1565FF' },
-  { name: 'Lorem', value: 25, color: '#00cfff' },
-  { name: 'Lorem', value: 40, color: '#334' },
+  { name: 'New leads', value: 35, color: '#1565FF' },
+  { name: 'Active clients', value: 25, color: '#00cfff' },
+  { name: 'Pending', value: 40, color: '#334' },
 ];
 
 const personalAssets = [
@@ -100,18 +100,18 @@ export default function DashboardPage() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="body1">Lorem ipsum bar</Typography>}
+              title={<Typography variant="body1">Monthly user growth</Typography>}
               action={<IconButton size="small"><MoreIcon fontSize="small" /></IconButton>}
               sx={{ pb: 0 }}
               subheader={
                 <Box sx={{ display: 'flex', gap: 2, mt: 0.5 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#1565FF' }} />
-                    <Typography variant="caption" color="text.secondary">Data one</Typography>
+                    <Typography variant="caption" color="text.secondary">New users</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#00cfff' }} />
-                    <Typography variant="caption" color="text.secondary">Data two</Typography>
+                    <Typography variant="caption" color="text.secondary">Active users</Typography>
                   </Box>
                 </Box>
               }
@@ -138,16 +138,26 @@ export default function DashboardPage() {
         <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="body1">Lorem ipsum</Typography>}
+              title={<Typography variant="body1">Account status distribution</Typography>}
               action={<IconButton size="small"><MoreIcon fontSize="small" /></IconButton>}
               sx={{ pb: 0 }}
-              subheader={<Typography variant="caption" color="text.secondary">More detailed calculation</Typography>}
+              subheader={<Typography variant="caption" color="text.secondary">Percentage breakdown by account status</Typography>}
             />
             <CardContent sx={{ pt: 1 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 <ResponsiveContainer width={140} height={160}>
                   <PieChart>
-                    <Pie data={pieData} cx="50%" cy="50%" innerRadius={40} outerRadius={65} dataKey="value" paddingAngle={2}>
+                    <Pie
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={40}
+                      outerRadius={65}
+                      dataKey="value"
+                      paddingAngle={1}
+                      stroke="rgba(255, 255, 255, 0.56)"
+                      strokeWidth={1}
+                    >
                       {pieData.map((entry, index) => (
                         <Cell key={index} fill={entry.color} />
                       ))}
@@ -174,12 +184,12 @@ export default function DashboardPage() {
         <Grid size={{ xs: 12 }}>
           <Card>
             <CardHeader
-              title={<Typography variant="body1">Lorem ipsum</Typography>}
+              title={<Typography variant="body1">Operational performance</Typography>}
               sx={{ pb: 0 }}
               subheader={
                 <Box>
                   <Typography variant="caption" color="text.secondary">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                    Real-time tracking of handled requests and average response time
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, mt: 0.5 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
@@ -197,7 +207,7 @@ export default function DashboardPage() {
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
                 <Avatar src="/images/avatar.jpg" sx={{ width: 28, height: 28 }} />
-                <Typography variant="caption" color="text.secondary">Lorem ipsum</Typography>
+                <Typography variant="caption" color="text.secondary">Last 24-hour update</Typography>
                 <Box sx={{ flex: 1 }} />
                 <Typography variant="caption" color="primary.main"
               sx={{ fontWeight: 700 }}>

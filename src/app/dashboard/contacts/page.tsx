@@ -5,7 +5,6 @@ import {
   Box, Typography, TextField, Button, Checkbox, FormControlLabel,
   Grid, Divider,
 } from '@mui/material';
-import BizingLogo from '@/components/BizingLogo';
 
 export default function ContactsPage() {
   return (
@@ -54,7 +53,7 @@ export default function ContactsPage() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               fullWidth
-              placeholder="Inserisci il tuo nome"
+              placeholder="Enter your first name"
               size="small"
               variant="standard"
               slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
@@ -63,7 +62,7 @@ export default function ContactsPage() {
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               fullWidth
-              placeholder="Inserisci il tuo cognome"
+              placeholder="Enter your last name"
               size="small"
               variant="standard"
               slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
@@ -72,7 +71,7 @@ export default function ContactsPage() {
           <Grid size={{ xs: 12 }}>
             <TextField
               fullWidth
-              placeholder="Inserisci la tua email"
+              placeholder="Enter your business email"
               size="small"
               variant="standard"
               slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
@@ -81,7 +80,7 @@ export default function ContactsPage() {
           <Grid size={{ xs: 12 }}>
             <TextField
               fullWidth
-              placeholder="Il tuo messaggio qui"
+              placeholder="Tell us how we can help"
               multiline
               rows={4}
               variant="standard"
@@ -95,10 +94,10 @@ export default function ContactsPage() {
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <FormControlLabel
             control={<Checkbox size="small" sx={{ color: '#8892b0' }} />}
-            label={<Typography variant="body2" color="text.secondary">Accept Lorem ipsum</Typography>}
+            label={<Typography variant="body2" color="text.secondary">I agree to be contacted regarding my request</Typography>}
           />
           <Button variant="contained" color="primary" size="medium" sx={{ px: 4 }}>
-            CONTATTACI
+            CONTACT US
           </Button>
         </Box>
       </Box>

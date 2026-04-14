@@ -1,0 +1,237 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText,
+  Typography, Divider, Collapse, IconButton, Tooltip,
+} from '@mui/material';
+import {
+  Dashboard as DashboardIcon,
+  CreditCard as CardIcon,
+  ContactMail as ECardIcon,
+  Contacts as ContactsIcon,
+  People as UsersIcon,
+  PersonSearch as UserCommandsIcon,
+  ExpandLess, ExpandMore,
+  Add as AddIcon,
+  FormatListBulleted as ListIcon,
+  Settings as SettingsIcon,
+  FiberManualRecord as DotIcon,
+} from '@mui/icons-material';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import BizingLogo from '@/components/BizingLogo';
+
+const DRAWER_WIDTH = 220;
+
+const navSections = [
+  {
+    label: null,
+    items: [
+      { label: 'Dashboard', icon: <DashboardIcon fontSize="small" />, href: '/dashboard' },
+    ],
+  },
+  {
+    label: 'PERSONAL ASSETS',
+    items: [
+      {
+        label: 'Cards',
+        icon: <CardIcon fontSize="small" />,
+        href: '/dashboard/cards',
+        children: [],
+      },
+      {
+        label: 'eCards',
+        icon: <ECardIcon fontSize="small" />,
+        href: '/dashboard/ecards',
+        children: [
+          { label: 'New', icon: <AddIcon sx={{ fontSize: 13 }} />, href: '/dashboard/ecards/new' },
+          { label: 'List', icon: <ListIcon sx={{ fontSize: 13 }} />, href: '/dashboard/ecards/list' },
+        ],
+      },
+      {
+        label: 'Contacts',
+        icon: <ContactsIcon fontSize="small" />,
+        href: '/dashboard/contacts',
+      },
+    ],
+  },
+  {
+    label: 'ADMINISTRATION TOOL',
+    items: [
+      {
+        label: 'Users',
+        icon: <UsersIcon fontSize="small" />,
+        href: '/dashboard/users',
+      },
+    ],
+  },
+  {
+    label: 'SELECTED USERS',
+    items: [
+      {
+        label: 'User Commands',
+        icon: <UserCommandsIcon fontSize="small" />,
+        href: '/dashboard/user-commands',
+      },
+    ],
+  },
+];
+
+interface SidebarItemProps {
+  item: { label: string; icon: React.ReactNode; href: string; children?: { label: string; icon: React.ReactNode; href: string }[] };
+  depth?: number;
+}
+
+function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(pathname.startsWith(item.href));
+  const hasChildren = item.children && item.children.length > 0;
+  const isActive = pathname === item.href || (hasChildren && pathname.startsWith(item.href));
+
+  const handleClick = () => {
+    if (hasChildren) setOpen(!open);
+  };
+
+  return (
+    <>
+      <ListItemButton
+        component={hasChildren ? 'div' : Link}
+        href={hasChildren ? undefined : item.href}
+        onClick={handleClick}
+        selected={isActive && !hasChildren}
+        sx={{
+          pl: depth === 0 ? 1.5 : 3,
+          py: 0.8,
+          mb: 0.2,
+          minHeight: 36,
+          borderRadius: '6px',
+          color: isActive ? '#fff' : '#8892b0',
+          '&.Mui-selected': {
+            bgcolor: '#1565FF',
+            color: '#fff',
+            '& .MuiListItemIcon-root': { color: '#fff' },
+          },
+          '&:hover': {
+            bgcolor: isActive && !hasChildren ? '#1565FF' : 'rgba(21,101,255,0.12)',
+            color: '#fff',
+          },
+        }}
+      >
+        <ListItemIcon sx={{ minWidth: 28, color: 'inherit' }}>{item.icon}</ListItemIcon>
+        <ListItemText
+          primary={item.label}
+          slotProps={{ primary: { sx: { fontSize: 13, fontWeight: isActive ? 600 : 400 } } }}
+        />
+        {hasChildren && (
+          <Box sx={{ color: 'inherit', display: 'flex', alignItems: 'center' }}>
+            {open ? <ExpandLess sx={{ fontSize: 16 }} /> : <ExpandMore sx={{ fontSize: 16 }} />}
+          </Box>
+        )}
+      </ListItemButton>
+
+      {hasChildren && (
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List disablePadding sx={{ pl: 1 }}>
+            {item.children!.map((child) => (
+              <ListItemButton
+                key={child.href}
+                component={Link}
+                href={child.href}
+                selected={pathname === child.href}
+                sx={{
+                  pl: 3,
+                  py: 0.6,
+                  mb: 0.2,
+                  minHeight: 32,
+                  borderRadius: '6px',
+                  color: pathname === child.href ? '#1565FF' : '#8892b0',
+                  '&.Mui-selected': { bgcolor: 'transparent', color: '#1565FF' },
+                  '&:hover': { bgcolor: 'rgba(21,101,255,0.08)', color: '#fff' },
+                }}
+              >
+                <ListItemIcon sx={{ minWidth: 24, color: 'inherit' }}>{child.icon}</ListItemIcon>
+                <ListItemText
+                  primary={child.label}
+                  slotProps={{ primary: { sx: { fontSize: 12, fontWeight: pathname === child.href ? 600 : 400 } } }}
+                />
+              </ListItemButton>
+            ))}
+          </List>
+        </Collapse>
+      )}
+    </>
+  );
+}
+
+export default function Sidebar() {
+  return (
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: DRAWER_WIDTH,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: DRAWER_WIDTH,
+          boxSizing: 'border-box',
+          backgroundColor: '#0a0b22',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
+          overflowX: 'hidden',
+        },
+      }}
+    >
+      {/* Logo */}
+      <Box sx={{ px: 2, py: 2.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+        <BizingLogo size="small" />
+      </Box>
+
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+
+      {/* Navigation */}
+      <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', px: 1, py: 1 }}>
+        {navSections.map((section, si) => (
+          <Box key={si} sx={{ mb: 1.5 }}>
+            {section.label && (
+              <Typography
+                sx={{
+                  fontSize: 9,
+                  fontWeight: 700,
+                  color: '#4a5568',
+                  letterSpacing: '0.12em',
+                  px: 1.5,
+                  py: 0.5,
+                  mt: 1,
+                }}
+              >
+                {section.label}
+              </Typography>
+            )}
+            {/* Divider line after label */}
+            {section.label && (
+              <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)', mb: 0.5, mx: 1 }} />
+            )}
+            <List disablePadding>
+              {section.items.map((item) => (
+                <SidebarItem key={item.href} item={item} />
+              ))}
+            </List>
+          </Box>
+        ))}
+      </Box>
+
+      {/* Settings icon at bottom */}
+      <Box sx={{ p: 1.5, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <Tooltip title="Settings" placement="right">
+          <IconButton
+            component={Link}
+            href="/dashboard/settings"
+            size="small"
+            sx={{ color: '#8892b0', '&:hover': { color: '#fff' } }}
+          >
+            <SettingsIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      </Box>
+    </Drawer>
+  );
+}

@@ -1,0 +1,154 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  Box, Typography, Card, CardContent, Button, Chip, Divider,
+  TextField, List, ListItem, ListItemText, ListItemIcon,
+  Grid
+} from '@mui/material';
+import { CheckCircle as CheckIcon } from '@mui/icons-material';
+import Link from 'next/link';
+
+const packs = [
+  {
+    id: 'pack1',
+    name: 'Starter',
+    price: '€9.99',
+    period: '/month',
+    description: 'Perfect for individuals getting started',
+    features: ['1 Metal Card', '5 eCards', '100 Contacts', 'Basic Analytics', 'Email Support'],
+    color: '#4d8aff',
+    popular: false,
+  },
+  {
+    id: 'pack2',
+    name: 'Business',
+    price: '€29.99',
+    period: '/month',
+    description: 'Best for growing businesses',
+    features: ['3 Metal Cards', '25 eCards', 'Unlimited Contacts', 'Advanced Analytics', 'Priority Support', 'Team Features'],
+    color: '#1565FF',
+    popular: true,
+  },
+  {
+    id: 'pack3',
+    name: 'Enterprise',
+    price: '€99.99',
+    period: '/month',
+    description: 'For large organizations',
+    features: ['10 Metal Cards', 'Unlimited eCards', 'Unlimited Contacts', 'Custom Analytics', '24/7 Support', 'API Access', 'White Label'],
+    color: '#00cfff',
+    popular: false,
+  },
+];
+
+export default function PaymentPage() {
+  const [selected, setSelected] = useState('pack2');
+
+  return (
+    <Box>
+      <Typography variant="h5"
+              sx={{ fontWeight: 600, mb: 0.5 }}>
+        Choose your Plan
+      </Typography>
+      <Typography variant="body2" color="text.secondary"
+              sx={{ mb: 3 }}>
+        Select the plan that fits your needs
+      </Typography>
+
+      <Grid container spacing={2.5} sx={{ mb: 4 }}>
+        {packs.map((pack) => (
+          <Grid size={{ xs: 12, md: 4 }} key={pack.id}>
+            <Card
+              onClick={() => setSelected(pack.id)}
+              sx={{
+                cursor: 'pointer',
+                position: 'relative',
+                border: selected === pack.id ? `2px solid ${pack.color}` : '1px solid rgba(255,255,255,0.06)',
+                transition: 'all 0.2s',
+                '&:hover': { borderColor: pack.color, transform: 'translateY(-4px)' },
+              }}
+            >
+              {pack.popular && (
+                <Chip
+                  label="Most Popular"
+                  size="small"
+                  sx={{
+                    position: 'absolute',
+                    top: -10,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    bgcolor: '#1565FF',
+                    color: '#fff',
+                    fontSize: 10,
+                    height: 20,
+                  }}
+                />
+              )}
+              <CardContent sx={{ textAlign: 'center', pt: 3 }}>
+                <Typography variant="h6" sx={{color: pack.color, fontWeight: 700, mb: 0.5}}>
+                  {pack.name}
+                </Typography>
+                <Typography variant="caption" color="text.secondary"
+              sx={{ display: 'block', mb: 2 }}>
+                  {pack.description}
+                </Typography>
+                <Box sx={{ mb: 2 }}>
+                  <Typography component="span" variant="h4">{pack.price}</Typography>
+                  <Typography component="span" variant="body2" color="text.secondary">{pack.period}</Typography>
+                </Box>
+                <Divider sx={{ mb: 2 }} />
+                <List dense disablePadding>
+                  {pack.features.map((f) => (
+                    <ListItem key={f} disableGutters sx={{ py: 0.3 }}>
+                      <ListItemIcon sx={{ minWidth: 24 }}>
+                        <CheckIcon sx={{ fontSize: 14, color: pack.color }} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={f}
+                        slotProps={{ primary: { sx: { fontSize: 12, color: '#fff' } } }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Payment Details */}
+      <Card sx={{ maxWidth: 500 }}>
+        <CardContent>
+          <Typography variant="subtitle1"
+              sx={{ fontWeight: 600, mb: 2 }}>
+            Payment Details
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid size={{ xs: 12 }}>
+              <TextField fullWidth placeholder="Card Number" size="small" />
+            </Grid>
+            <Grid size={{ xs: 6 }}>
+              <TextField fullWidth placeholder="MM/YY" size="small" />
+            </Grid>
+            <Grid size={{ xs: 6 }}>
+              <TextField fullWidth placeholder="CVC" size="small" />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <TextField fullWidth placeholder="Name on Card" size="small" />
+            </Grid>
+          </Grid>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            size="medium"
+            sx={{ mt: 3, py: 1 }}
+          >
+            COMPLETE PAYMENT
+          </Button>
+        </CardContent>
+      </Card>
+    </Box>
+  );
+}

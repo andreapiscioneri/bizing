@@ -1,0 +1,107 @@
+'use client';
+
+import React from 'react';
+import {
+  Box, Typography, TextField, Button, Checkbox, FormControlLabel,
+  Grid, Divider,
+} from '@mui/material';
+import BizingLogo from '@/components/BizingLogo';
+
+export default function ContactsPage() {
+  return (
+    <Box>
+      <Typography variant="h5"
+              sx={{ fontWeight: 600, mb: 3 }}>
+        Contact us
+      </Typography>
+
+      <Box
+        sx={{
+          maxWidth: 720,
+          mx: 'auto',
+          background: 'linear-gradient(135deg, #0d0e28 0%, #0a0b22 100%)',
+          borderRadius: 3,
+          p: 4,
+          border: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
+        {/* Logo centered */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+          <Box sx={{ textAlign: 'center' }}>
+            <Box
+              sx={{
+                width: 70,
+                height: 70,
+                borderRadius: '50%',
+                border: '3px solid #1565FF',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mx: 'auto',
+                mb: 1,
+              }}
+            >
+              <Typography sx={{ fontSize: 28, fontWeight: 700, color: '#1565FF' }}>B</Typography>
+            </Box>
+            <Typography sx={{ fontSize: 22, fontWeight: 700, color: '#1565FF' }}>Bizing</Typography>
+            <Typography sx={{ fontSize: 11, fontWeight: 700, color: '#1565FF', letterSpacing: '0.15em' }}>
+              BUSINESS ATTITUDE
+            </Typography>
+          </Box>
+        </Box>
+
+        <Grid container spacing={2.5}>
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <TextField
+              fullWidth
+              placeholder="Inserisci il tuo nome"
+              size="small"
+              variant="standard"
+              slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
+            />
+          </Grid>
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <TextField
+              fullWidth
+              placeholder="Inserisci il tuo cognome"
+              size="small"
+              variant="standard"
+              slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
+            />
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <TextField
+              fullWidth
+              placeholder="Inserisci la tua email"
+              size="small"
+              variant="standard"
+              slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
+            />
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <TextField
+              fullWidth
+              placeholder="Il tuo messaggio qui"
+              multiline
+              rows={4}
+              variant="standard"
+              slotProps={{ input: { sx: { color: '#fff', '&:before': { borderColor: 'rgba(255,255,255,0.2)' } } } }}
+            />
+          </Grid>
+        </Grid>
+
+        <Divider sx={{ my: 3 }} />
+
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <FormControlLabel
+            control={<Checkbox size="small" sx={{ color: '#8892b0' }} />}
+            label={<Typography variant="body2" color="text.secondary">Accept Lorem ipsum</Typography>}
+          />
+          <Button variant="contained" color="primary" size="medium" sx={{ px: 4 }}>
+            CONTATTACI
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+  );
+}

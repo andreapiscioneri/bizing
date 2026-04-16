@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Box, Typography, Card, CardContent, Button, Chip, Divider,
   TextField, List, ListItem, ListItemText, ListItemIcon,
@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { CheckCircle as CheckIcon } from '@mui/icons-material';
-import Link from 'next/link';
 
 const packs = [
   {
@@ -124,7 +123,7 @@ export default function PaymentPage() {
       </Grid>
 
       {/* Payment Details */}
-      <Card sx={{ maxWidth: 500 }}>
+      <Card sx={{ maxWidth: 500, width: '100%' }}>
         <CardContent>
           <Typography variant="subtitle1"
               sx={{ fontWeight: 600, mb: 2, color: titleColor }}>

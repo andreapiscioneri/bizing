@@ -1,8 +1,7 @@
 'use client';
 
-import React from 'react';
 import {
-  Box, Typography, Grid, Card, CardContent, Button, Chip,
+  Box, Typography, Grid, Button,
   TextField, Checkbox, FormControlLabel, Divider,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';

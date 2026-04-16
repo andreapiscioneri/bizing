@@ -16,7 +16,6 @@ import {
   Add as AddIcon,
   FormatListBulleted as ListIcon,
   Settings as SettingsIcon,
-  FiberManualRecord as DotIcon,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -79,11 +78,17 @@ const navSections = [
 ];
 
 interface SidebarItemProps {
-  item: { label: string; icon: React.ReactNode; href: string; children?: { label: string; icon: React.ReactNode; href: string }[] };
+  item: {
+    label: string;
+    icon: React.ReactNode;
+    href: string;
+    children?: { label: string; icon: React.ReactNode; href: string }[];
+  };
   depth?: number;
+  onNavigate?: () => void;
 }
 
-function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
+function SidebarItem({ item, depth = 0, onNavigate }: SidebarItemProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   const pathname = usePathname();
@@ -92,7 +97,11 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
   const isActive = pathname === item.href || (hasChildren && pathname.startsWith(item.href));
 
   const handleClick = () => {
-    if (hasChildren) setOpen(!open);
+    if (hasChildren) {
+      setOpen(!open);
+    } else if (onNavigate) {
+      onNavigate();
+    }
   };
 
   return (
@@ -150,6 +159,7 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
                 component={Link}
                 href={child.href}
                 selected={pathname === child.href}
+                onClick={onNavigate}
                 sx={{
                   pl: 3,
                   py: 0.6,
@@ -177,31 +187,33 @@ function SidebarItem({ item, depth = 0 }: SidebarItemProps) {
   );
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+  mobileOpen: boolean;
+  onClose: () => void;
+}
+
+export default function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: DRAWER_WIDTH,
-          boxSizing: 'border-box',
-          backgroundColor: isDark ? '#0a0b22' : '#ffffff',
-          borderRight: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
-          overflowX: 'hidden',
-        },
-      }}
-    >
+  const paperSx = {
+    width: DRAWER_WIDTH,
+    boxSizing: 'border-box' as const,
+    backgroundColor: isDark ? '#0a0b22' : '#ffffff',
+    borderRight: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
+    overflowX: 'hidden' as const,
+    display: 'flex',
+    flexDirection: 'column' as const,
+  };
+
+  const drawerContent = (
+    <>
       {/* Logo */}
-      <Box sx={{ px: 2, py: 2.5, display: 'flex', alignItems: 'center', gap: 1 }}>
+      <Box sx={{ px: 2, py: 2.5, display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
         <BizingLogo size="small" />
       </Box>
 
-      <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)' }} />
+      <Divider sx={{ borderColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)', flexShrink: 0 }} />
 
       {/* Navigation */}
       <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', px: 1, py: 1 }}>
@@ -222,13 +234,12 @@ export default function Sidebar() {
                 {section.label}
               </Typography>
             )}
-            {/* Divider line after label */}
             {section.label && (
-              <Divider sx={{ borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)', mb: 0.5, mx: 1 }} />
+              <Divider sx={{ borderColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)', mb: 0.5, mx: 1 }} />
             )}
             <List disablePadding>
               {section.items.map((item) => (
-                <SidebarItem key={item.href} item={item} />
+                <SidebarItem key={item.href} item={item} onNavigate={onClose} />
               ))}
             </List>
           </Box>
@@ -236,18 +247,59 @@ export default function Sidebar() {
       </Box>
 
       {/* Settings icon at bottom */}
-      <Box sx={{ p: 1.5, borderTop: '1px solid', borderColor: theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)' }}>
+      <Box
+        sx={{
+          p: 1.5,
+          flexShrink: 0,
+          borderTop: '1px solid',
+          borderColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)',
+        }}
+      >
         <Tooltip title="Settings" placement="right">
           <IconButton
             component={Link}
             href="/dashboard/settings"
             size="small"
+            onClick={onClose}
             sx={{ color: 'text.secondary', '&:hover': { color: isDark ? '#fff' : 'text.primary' } }}
           >
             <SettingsIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </Box>
-    </Drawer>
+    </>
+  );
+
+  return (
+    <Box
+      component="nav"
+      sx={{ width: { md: DRAWER_WIDTH }, flexShrink: { md: 0 } }}
+    >
+      {/* Mobile: temporary drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={onClose}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': paperSx,
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+
+      {/* Desktop: permanent drawer */}
+      <Drawer
+        variant="permanent"
+        open
+        sx={{
+          display: { xs: 'none', md: 'block' },
+          '& .MuiDrawer-paper': paperSx,
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+    </Box>
   );
 }

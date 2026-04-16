@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
 import {
-  Box, Typography, Card, CardContent, Grid, Switch, FormControlLabel,
-  TextField, Button, Avatar, Divider,
+  Box, Typography, Card, CardContent, Grid, Switch,
+  TextField, Button, Avatar,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
@@ -54,19 +53,19 @@ export default function SettingsPage() {
             <CardContent>
               <Typography variant="subtitle1" sx={{ color: titleColor }}>Profile Details</Typography>
               <Grid container spacing={2}>
-                <Grid size={{ xs: 6 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <TextField fullWidth placeholder="First Name" size="small" defaultValue="John" sx={{ '& .MuiOutlinedInput-root': { backgroundColor: inputBg, '& fieldset': { borderColor: inputBorder } } }} />
                 </Grid>
-                <Grid size={{ xs: 6 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <TextField fullWidth placeholder="Last Name" size="small" defaultValue="Doe" sx={{ '& .MuiOutlinedInput-root': { backgroundColor: inputBg, '& fieldset': { borderColor: inputBorder } } }} />
                 </Grid>
                 <Grid size={{ xs: 12 }}>
                   <TextField fullWidth placeholder="Email" size="small" defaultValue="john.doe@example.com" sx={{ '& .MuiOutlinedInput-root': { backgroundColor: inputBg, '& fieldset': { borderColor: inputBorder } } }} />
                 </Grid>
-                <Grid size={{ xs: 6 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <TextField fullWidth placeholder="Phone" size="small" defaultValue="+1 234 567 890" sx={{ '& .MuiOutlinedInput-root': { backgroundColor: inputBg, '& fieldset': { borderColor: inputBorder } } }} />
                 </Grid>
-                <Grid size={{ xs: 6 }}>
+                <Grid size={{ xs: 12, sm: 6 }}>
                   <TextField fullWidth placeholder="Role" size="small" defaultValue="UX Designer" sx={{ '& .MuiOutlinedInput-root': { backgroundColor: inputBg, '& fieldset': { borderColor: inputBorder } } }} />
                 </Grid>
               </Grid>

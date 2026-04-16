@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   AppBar, Toolbar, IconButton, Badge, Avatar, Box, Tooltip, Menu, MenuItem, Typography, ListItemIcon,
 } from '@mui/material';
@@ -14,9 +14,12 @@ import {
   MarkEmailReadOutlined as MarkEmailReadIcon,
   PaymentOutlined as PaymentIcon,
   GroupOutlined as GroupIcon,
+  Menu as MenuIcon,
 } from '@mui/icons-material';
 import Link from 'next/link';
 import { useThemeMode } from '@/components/ThemeRegistry';
+
+const DRAWER_WIDTH = 220;
 
 const notifications = [
   { title: 'New payment received', subtitle: 'Order #38421 has been confirmed', icon: PaymentIcon },
@@ -24,7 +27,11 @@ const notifications = [
   { title: 'Setup reminder', subtitle: 'Complete your business card setup', icon: MarkEmailReadIcon },
 ];
 
-export default function TopBar() {
+interface TopBarProps {
+  onMobileMenuOpen: () => void;
+}
+
+export default function TopBar({ onMobileMenuOpen }: TopBarProps) {
   const [notifAnchorEl, setNotifAnchorEl] = useState<null | HTMLElement>(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState<null | HTMLElement>(null);
   const { mode, toggleMode } = useThemeMode();
@@ -39,53 +46,70 @@ export default function TopBar() {
         position="fixed"
         elevation={0}
         sx={{
-          width: `calc(100% - 220px)`,
-          ml: `220px`,
+          width: { xs: '100%', md: `calc(100% - ${DRAWER_WIDTH}px)` },
+          ml: { xs: 0, md: `${DRAWER_WIDTH}px` },
           backgroundColor: 'transparent',
           borderBottom: `1px solid ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(21,34,56,0.12)'}`,
           backdropFilter: 'blur(10px)',
           zIndex: (theme) => theme.zIndex.drawer - 1,
         }}
       >
-        <Toolbar sx={{ minHeight: '52px !important', px: 2, justifyContent: 'flex-end', gap: 1.5 }}>
-        {/* Dark/Light toggle */}
-        <Tooltip title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
+        <Toolbar sx={{ minHeight: '52px !important', px: { xs: 1.5, sm: 2 }, gap: 1 }}>
+          {/* Hamburger — mobile only */}
           <IconButton
             size="small"
-            onClick={toggleMode}
-            sx={{ width: 36, height: 36, color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
+            onClick={onMobileMenuOpen}
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              color: isDark ? '#8892b0' : '#5e6b84',
+              '&:hover': { color: isDark ? '#fff' : '#152238' },
+            }}
           >
-            {isDark ? <MoonIcon sx={{ fontSize: 16 }} /> : <SunIcon sx={{ fontSize: 16 }} />}
+            <MenuIcon fontSize="small" />
           </IconButton>
-        </Tooltip>
 
-        {/* Notifications */}
-        <Tooltip title="Notifications">
-          <IconButton
-            size="small"
-            sx={{ width: 36, height: 36, color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
-            onClick={(event) => setNotifAnchorEl(event.currentTarget)}
-          >
-            <Badge badgeContent={4} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: 9, minWidth: 16, height: 16 } }}>
-              <NotifIcon fontSize="small" />
-            </Badge>
-          </IconButton>
-        </Tooltip>
+          {/* Spacer */}
+          <Box sx={{ flexGrow: 1 }} />
 
-        {/* User Avatar */}
-        <Tooltip title="Profile">
-          <IconButton
-            size="small"
-            onClick={(event) => setProfileAnchorEl(event.currentTarget)}
-            sx={{ width: 36, height: 36, p: 0 }}
-          >
-            <Avatar
-              src="/images/avatar.jpg"
-              sx={{ width: 30, height: 30, cursor: 'pointer', border: '2px solid #1565FF' }}
-            />
-          </IconButton>
-        </Tooltip>
+          {/* Dark/Light toggle */}
+          <Tooltip title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
+            <IconButton
+              size="small"
+              onClick={toggleMode}
+              sx={{ width: 36, height: 36, color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
+            >
+              {isDark ? <MoonIcon sx={{ fontSize: 16 }} /> : <SunIcon sx={{ fontSize: 16 }} />}
+            </IconButton>
+          </Tooltip>
 
+          {/* Notifications */}
+          <Tooltip title="Notifications">
+            <IconButton
+              size="small"
+              sx={{ width: 36, height: 36, color: isDark ? '#8892b0' : '#5e6b84', '&:hover': { color: isDark ? '#fff' : '#152238' } }}
+              onClick={(event) => setNotifAnchorEl(event.currentTarget)}
+            >
+              <Badge badgeContent={notifications.length} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: 9, minWidth: 16, height: 16 } }}>
+                <NotifIcon fontSize="small" />
+              </Badge>
+            </IconButton>
+          </Tooltip>
+
+          {/* User Avatar */}
+          <Tooltip title="Profile">
+            <IconButton
+              size="small"
+              onClick={(event) => setProfileAnchorEl(event.currentTarget)}
+              sx={{ width: 36, height: 36, p: 0 }}
+            >
+              <Avatar
+                src="/images/avatar.jpg"
+                sx={{ width: 30, height: 30, cursor: 'pointer', border: '2px solid #1565FF' }}
+              />
+            </IconButton>
+          </Tooltip>
+
+          {/* Notifications Menu */}
           <Menu
             anchorEl={notifAnchorEl}
             open={isNotifOpen}
@@ -94,7 +118,8 @@ export default function TopBar() {
               paper: {
                 sx: {
                   mt: 1,
-                  minWidth: 320,
+                  minWidth: 300,
+                  maxWidth: '90vw',
                   backgroundColor: isDark ? '#0d0e28' : '#ffffff',
                   border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(21,34,56,0.12)'}`,
                 },
@@ -114,6 +139,7 @@ export default function TopBar() {
             ))}
           </Menu>
 
+          {/* Profile Menu */}
           <Menu
             anchorEl={profileAnchorEl}
             open={isProfileOpen}

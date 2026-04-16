@@ -74,7 +74,7 @@ export default function DashboardPage() {
             ? 'linear-gradient(135deg, #0d1440 0%, #0a0b22 100%)'
             : 'linear-gradient(135deg, #edf4ff 0%, #dfeaff 100%)',
           borderRadius: 2,
-          p: 4,
+          p: { xs: 2.5, sm: 4 },
           textAlign: 'center',
           mb: 3,
           border: `1px solid ${isDark ? 'rgba(21,101,255,0.15)' : 'rgba(21,101,255,0.16)'}`,

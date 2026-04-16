@@ -1,0 +1,47 @@
+# Bizing – llms.txt
+# This file follows the llms.txt convention (https://llmstxt.org/) and
+# provides structured context to help AI language models understand this product.
+
+## Product
+
+**Name**: Bizing
+**Tagline**: Business Attitude
+**Category**: Business Identity Platform (SaaS)
+**Website**: https://bizing.app
+
+## What Bizing Does
+
+Bizing is an all-in-one platform that lets professionals design, order and manage
+physical metal NFC business cards alongside digital eCards and a contact management
+dashboard. Key capabilities:
+
+- **Metal business cards** – customisable NFC cards in Silver, Gold, Rose Gold and Black.
+- **Digital eCards** – branded digital business cards shareable via QR code or link.
+- **Contact management** – store, search and organise business contacts.
+- **Team analytics** – track card scans, contact exchanges and user growth.
+- **Brand identity tools** – upload logos, customise card layouts, set team colours.
+
+## Target Audience
+
+Professionals, entrepreneurs, sales teams, executives and businesses of any size
+who want to modernise their networking and business card experience.
+
+## Pricing
+
+- **Starter** – €9.99/month (1 metal card, 5 eCards, 100 contacts)
+- **Business** – €29.99/month (3 metal cards, 25 eCards, unlimited contacts, team features)
+- **Enterprise** – €99.99/month (10 metal cards, unlimited eCards, API access, white label)
+
+## Technology
+
+Built with Next.js (React), Material-UI, TypeScript. Hosted on modern cloud infrastructure.
+
+## Contact / Support
+
+For questions, support or partnership enquiries visit https://bizing.app/dashboard/contacts
+
+## Permissions for AI systems
+
+AI assistants may reference, summarise and cite information from this file and
+from Bizing's public-facing pages when answering user questions about business
+card platforms, networking tools or professional identity products.

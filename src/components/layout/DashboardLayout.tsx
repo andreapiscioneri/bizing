@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Toolbar } from '@mui/material';
 import Sidebar from './Sidebar';
 import TopBar from './TopBar';
@@ -12,22 +12,25 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'background.default' }}>
-      <Sidebar />
-      <TopBar />
+      <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <TopBar onMobileMenuOpen={() => setMobileOpen(true)} />
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          width: `calc(100% - ${DRAWER_WIDTH}px)`,
+          minWidth: 0,
+          width: { xs: '100%', md: `calc(100% - ${DRAWER_WIDTH}px)` },
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
         }}
       >
         <Toolbar sx={{ minHeight: '52px !important' }} />
-        <Box sx={{ flex: 1, p: 3, overflow: 'auto' }}>
+        <Box sx={{ flex: 1, p: { xs: 2, sm: 3 }, overflow: 'auto' }}>
           {children}
         </Box>
         {/* Footer */}
@@ -35,11 +38,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           sx={{
             borderTop: '1px solid',
             borderColor: 'divider',
-            px: 3,
+            px: { xs: 2, sm: 3 },
             py: 1.5,
             display: 'flex',
-            justifyContent: 'flex-end',
-            gap: 3,
+            justifyContent: { xs: 'center', sm: 'flex-end' },
+            gap: { xs: 2, sm: 3 },
+            flexWrap: 'wrap',
           }}
         >
           {['License', 'More Themes', 'Documentation', 'Support'].map((item) => (

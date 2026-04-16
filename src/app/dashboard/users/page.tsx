@@ -1,9 +1,7 @@
 'use client';
 
-import React from 'react';
 import {
   Box, Typography, Avatar, Button, Grid, Card, CardContent,
-  Divider, Chip, Link as MuiLink,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -13,7 +11,6 @@ import {
   LocationOn as LocationIcon,
   Facebook, LinkedIn,
 } from '@mui/icons-material';
-import Link from 'next/link';
 
 export default function UsersPage() {
   const theme = useTheme();
@@ -47,14 +44,14 @@ export default function UsersPage() {
             Nome Cognome
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Button variant="outlined" size="small" startIcon={<PhoneIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor }}>
+          <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', justifyContent: 'center', width: '100%', maxWidth: 360 }}>
+            <Button variant="outlined" size="small" startIcon={<PhoneIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor, flex: { xs: '1 1 auto', sm: '0 0 auto' } }}>
               CALL
             </Button>
-            <Button variant="outlined" size="small" startIcon={<EmailIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor }}>
+            <Button variant="outlined" size="small" startIcon={<EmailIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor, flex: { xs: '1 1 auto', sm: '0 0 auto' } }}>
               EMAIL
             </Button>
-            <Button variant="outlined" size="small" startIcon={<NavIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor }}>
+            <Button variant="outlined" size="small" startIcon={<NavIcon fontSize="small" />} sx={{ borderColor: borderColor, color: titleColor, flex: { xs: '1 1 auto', sm: '0 0 auto' } }}>
               NAVIGATE
             </Button>
           </Box>
